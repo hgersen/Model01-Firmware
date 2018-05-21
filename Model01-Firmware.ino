@@ -6,12 +6,10 @@
 #define BUILD_INFORMATION "locally built"
 #endif
 
-
 /**
  * These #include directives pull in the Kaleidoscope firmware core,
  * as well as the Kaleidoscope plugins we use in the Model 01's firmware
  */
-
 
 // The Kaleidoscope core
 #include "Kaleidoscope.h"
@@ -64,8 +62,6 @@ enum { MACRO_VERSION_INFO,
        MACRO_ANY
      };
 
-
-
 /** The Model 01's key layouts are defined as 'keymaps'. By default, there are three
   * keymaps: The standard QWERTY keymap, the "Function layer" keymap and the "Numpad"
   * keymap.
@@ -108,7 +104,7 @@ enum { MACRO_VERSION_INFO,
   *
   */
 
-enum { QWERTY, NUMPAD, FUNCTION }; // layers
+enum { MALTRON, NUMPAD, FUNCTION }; // layers
 
 /* This comment temporarily turns off astyle's indent enforcement
  *   so we can make the keymaps actually resemble the physical key layout better
@@ -116,7 +112,7 @@ enum { QWERTY, NUMPAD, FUNCTION }; // layers
 // *INDENT-OFF*
 
 KEYMAPS(
-
+/*
   [QWERTY] = KEYMAP_STACKED
   (___,          Key_1, Key_2, Key_3, Key_4, Key_5, Key_LEDEffectNext,
    Key_Backtick, Key_Q, Key_W, Key_E, Key_R, Key_T, Key_Tab,
@@ -131,7 +127,22 @@ KEYMAPS(
    OSM(RightAlt),  Key_N, Key_M, Key_Comma, Key_Period,    Key_Slash,     Key_Minus,
    OSM(RightShift), OSM(LeftAlt), Key_Spacebar, OSM(RightControl),
    OSL(FUNCTION)),
+*/
 
+  [MALTRON] = KEYMAP_STACKED
+  (___,          Key_1, Key_2, Key_3, Key_4, Key_5, Key_LEDEffectNext,
+   Key_Backtick, Key_Quote, Key_L, Key_U, Key_C, Key_J, Key_Tab,
+   Key_PageUp,   Key_A, Key_N, Key_I, Key_S, Key_V,
+   Key_PageDown, Key_Slash, Key_Semicolon, Key_Y, Key_F, Key_X, Key_Escape,
+   Key_Backspace, Key_E, OSM(LeftShift), OSM(LeftAlt),
+   OSL(FUNCTION),
+  
+   M(MACRO_ANY),  Key_6, Key_7, Key_8,     Key_9,         Key_0,         LockLayer(NUMPAD),
+   Key_Enter,     Key_K, Key_D, Key_G,     Key_W,         Key_Q,         Key_Equals,
+                  Key_B, Key_H, Key_T,     Key_R,         Key_O,         Key_Escape,
+   OSM(RightAlt), Key_Z, Key_P, Key_M, Key_Period,    Key_Comma,    Key_Minus,
+   Key_Tab, Key_Enter, Key_Spacebar, OSM(RightControl),
+   OSL(FUNCTION)),
 
   [NUMPAD] =  KEYMAP_STACKED
   (___, ___, ___, ___, ___, ___, ___,
@@ -196,7 +207,6 @@ static void anyKeyMacro(uint8_t keyState) {
   if (keyIsPressed(keyState))
     kaleidoscope::hid::pressKey(lastKey);
 }
-
 
 /** macroAction dispatches keymap events that are tied to a macro
     to that macro. It takes two uint8_t parameters.
