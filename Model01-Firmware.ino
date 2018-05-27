@@ -45,6 +45,9 @@
 // Let escape cancel oneshot
 #include "Kaleidoscope-Escape-OneShot.h"
 
+// visualize modifiers
+#include "Kaleidoscope-LED-ActiveModColor.h"
+
 /** This 'enum' is a list of all the macros used by the Model 01's firmware
   * The names aren't particularly important. What is important is that each
   * is unique.
@@ -295,7 +298,10 @@ KALEIDOSCOPE_INIT_PLUGINS(
   OneShot,
 
   // use escape to cancel oneshot
-  EscapeOneShot
+  EscapeOneShot,
+
+  // show active modifiers
+  ActiveModColorEffect
 );
 
 /** The 'setup' function is one of the two standard Arduino sketch functions.
