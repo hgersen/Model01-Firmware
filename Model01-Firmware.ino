@@ -131,17 +131,17 @@ KEYMAPS(
 
   [MALTRON] = KEYMAP_STACKED
   (___,          Key_1, Key_2, Key_3, Key_4, Key_5, Key_LEDEffectNext,
-   Key_Backtick, Key_Quote, Key_L, Key_U, Key_C, Key_J, Key_Tab,
-   Key_PageUp,   Key_A, Key_N, Key_I, Key_S, Key_V,
-   Key_PageDown, Key_Slash, Key_Semicolon, Key_Y, Key_F, Key_X, Key_Escape,
-   Key_Backspace, Key_E, OSM(LeftShift), OSM(LeftAlt),
+   Key_Backtick, Key_J, Key_C, Key_Y, Key_F, Key_K, Key_Tab,
+   Key_PageUp,   Key_R, Key_S, Key_T, Key_H, Key_D,
+   Key_PageDown, Key_Slash, Key_V, Key_G, Key_P, Key_B, Key_Escape,
+   Key_Backspace, Key_E, Key_Enter, OSM(LeftAlt),
    OSL(FUNCTION),
   
    M(MACRO_ANY),  Key_6, Key_7, Key_8,     Key_9,         Key_0,         LockLayer(NUMPAD),
-   Key_Enter,     Key_K, Key_D, Key_G,     Key_W,         Key_Q,         Key_Equals,
-                  Key_B, Key_H, Key_T,     Key_R,         Key_O,         Key_Escape,
-   OSM(RightAlt), Key_Z, Key_P, Key_M, Key_Period,    Key_Comma,    Key_Minus,
-   Key_Tab, Key_Enter, Key_Spacebar, OSM(RightControl),
+   Key_Enter,     Key_Z, Key_L, Key_Comma, Key_U,         Key_Q,         Key_Equals,
+                  Key_M, Key_N, Key_A,     Key_I,         Key_O,         Key_Quote,
+   OSM(RightAlt), Key_X, Key_W, Key_Period,Key_Semicolon, Key_Minus,     Key_Minus,
+   Key_Tab, OSM(LeftShift), Key_Spacebar, OSM(LeftControl),
    OSL(FUNCTION)),
 
   [NUMPAD] =  KEYMAP_STACKED
