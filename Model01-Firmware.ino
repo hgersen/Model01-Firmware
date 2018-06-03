@@ -6,11 +6,6 @@
 #define BUILD_INFORMATION "locally built"
 #endif
 
-/**
- * These #include directives pull in the Kaleidoscope firmware core,
- * as well as the Kaleidoscope plugins we use in the Model 01's firmware
- */
-
 // The Kaleidoscope core
 #include "Kaleidoscope.h"
 
@@ -22,9 +17,6 @@
 
 // Support for controlling the keyboard's LEDs
 #include "Kaleidoscope-LEDControl.h"
-
-// Support for "Numpad" mode, which is mostly just the Numpad specific LED mode
-#include "Kaleidoscope-NumPad.h"
 
 // Support for an "LED off mode"
 #include "LED-Off.h"
@@ -47,6 +39,9 @@
 
 // visualize modifiers
 #include "Kaleidoscope-LED-ActiveModColor.h"
+
+// multiple keys by tapping
+#include "Kaleidoscope-TapDance.h"
 
 /** This 'enum' is a list of all the macros used by the Model 01's firmware
   * The names aren't particularly important. What is important is that each
@@ -107,7 +102,34 @@ enum { MACRO_VERSION_INFO,
   *
   */
 
-enum { MALTRON, NUMPAD, FUNCTION }; // layers
+// make keys easier to read; based on UK keyboard
+#define Key_AT       LSHIFT(Key_Quote)
+#define Key_STAR     LSHIFT(Key_8)
+#define Key_DOLLAR   LSHIFT(Key_4)
+#define Key_CARET    LSHIFT(Key_6)
+#define Key_PRCNT    LSHIFT(Key_5)
+#define Key_EXCLM    LSHIFT(Key_1)
+#define Key_QUEST    LSHIFT(Key_Slash)
+#define Key_DBLQUOTE LSHIFT(Key_2)
+#define Key_AND      LSHIFT(Key_7)
+#define Key_LPAREN   LSHIFT(Key_9)
+#define Key_RPAREN   LSHIFT(Key_0)
+#define Key_UNDERSCR LSHIFT(Key_Minus)
+#define Key_PLUS     LSHIFT(Key_Equals)
+#define Key_LCB      LSHIFT(Key_LeftBracket)
+#define Key_RCB      LSHIFT(Key_RightBracket)
+#define Key_HASH     Key_NonUsPound
+#define Key_TILDE    LSHIFT(Key_NonUsPound)
+#define Key_BSLASH   Key_NonUsBackslashAndPipe
+#define Key_PIPE     LSHIFT(Key_NonUsBackslashAndPipe)
+#define Key_COLON    LSHIFT(Key_Semicolon)
+#define Key_GREATER  LSHIFT(Key_Period)
+#define Key_LESS     LSHIFT(Key_Comma)
+
+// layers as defined; need to be in the same order as actual definition
+enum { RSTHD, SHIFTED_RSTHD, FUNCTION }; // layers
+
+enum { BRACKETS, PARENS, CBRACES }; // tapdance
 
 /* This comment temporarily turns off astyle's indent enforcement
  *   so we can make the keymaps actually resemble the physical key layout better
@@ -115,38 +137,39 @@ enum { MALTRON, NUMPAD, FUNCTION }; // layers
 // *INDENT-OFF*
 
 KEYMAPS(
-/*
-  [QWERTY] = KEYMAP_STACKED
-  (___,          Key_1, Key_2, Key_3, Key_4, Key_5, Key_LEDEffectNext,
-   Key_Backtick, Key_Q, Key_W, Key_E, Key_R, Key_T, Key_Tab,
-   Key_PageUp,   Key_A, Key_S, Key_D, Key_F, Key_G,
-   Key_PageDown, Key_Z, Key_X, Key_C, Key_V, Key_B, Key_Escape,
-   OSM(LeftControl), Key_Backspace, Key_LeftGui, OSM(LeftShift),
-   OSL(FUNCTION),
-
-   M(MACRO_ANY),  Key_6, Key_7, Key_8,     Key_9,         Key_0,         LockLayer(NUMPAD),
-   Key_Enter,     Key_Y, Key_U, Key_I,     Key_O,         Key_P,         Key_Equals,
-                  Key_H, Key_J, Key_K,     Key_L,         Key_Semicolon, Key_Quote,
-   OSM(RightAlt),  Key_N, Key_M, Key_Comma, Key_Period,    Key_Slash,     Key_Minus,
-   OSM(RightShift), OSM(LeftAlt), Key_Spacebar, OSM(RightControl),
-   OSL(FUNCTION)),
-*/
-
-  [MALTRON] = KEYMAP_STACKED
-  (___,          Key_1, Key_2, Key_3, Key_4, Key_5, Key_LEDEffectNext,
-   Key_Backtick, Key_J, Key_C, Key_Y, Key_F, Key_K, Key_Tab,
-   Key_PageUp,   Key_R, Key_S, Key_T, Key_H, Key_D,
-   Key_PageDown, Key_Slash, Key_V, Key_G, Key_P, Key_B, Key_Escape,
+  // primary layer
+  [RSTHD] = KEYMAP_STACKED
+  (___,           Key_LCB,   Key_AT, Key_STAR, Key_DOLLAR, Key_CARET, Key_LEDEffectNext,
+   Key_Backtick,  Key_J,     Key_C,  Key_Y,    Key_F,      Key_K,     Key_LESS,
+   Key_Tab,       Key_R,     Key_S,  Key_T,    Key_H,      Key_D,
+   Key_Escape,    Key_Slash, Key_V,  Key_G,    Key_P,      Key_B,     TD(BRACKETS),
    Key_Backspace, Key_E, Key_Enter, OSM(LeftAlt),
    OSL(FUNCTION),
-  
-   M(MACRO_ANY),  Key_6, Key_7, Key_8,     Key_9,         Key_0,         LockLayer(NUMPAD),
-   Key_Enter,     Key_Z, Key_L, Key_Comma, Key_U,         Key_Q,         Key_Equals,
-                  Key_M, Key_N, Key_A,     Key_I,         Key_O,         Key_Quote,
-   OSM(RightAlt), Key_X, Key_W, Key_Period,Key_Semicolon, Key_Minus,     Key_Minus,
-   Key_Tab, OSM(LeftShift), Key_Spacebar, OSM(LeftControl),
+
+   M(MACRO_ANY), Key_PRCNT, Key_EXCLM, Key_NonUsPound,  Key_AND,    Key_RCB,    ___,
+   Key_Enter,    Key_Z,     Key_L,     Key_Comma,       Key_U,      Key_Q,      Key_BSLASH,
+                 Key_M,     Key_N,     Key_A,           Key_I,      Key_O,      Key_DBLQUOTE,
+   TD(PARENS),   Key_X,     Key_W,     Key_Period,      Key_Equals, Key_Minus,  ___,
+   Key_Tab, OSL(SHIFTED_RSTHD), Key_Spacebar, OSM(LeftControl),
    OSL(FUNCTION)),
 
+  // shift layer
+  [SHIFTED_RSTHD] = KEYMAP_STACKED
+  (___,        Key_F7,         Key_F5,        Key_F3,        Key_F1,        Key_F9,        ___,
+   Key_TILDE,  LSHIFT(Key_J),  LSHIFT(Key_C), LSHIFT(Key_Y), LSHIFT(Key_F), LSHIFT(Key_K), Key_GREATER,
+   ___,        LSHIFT(Key_R),  LSHIFT(Key_S), LSHIFT(Key_T), LSHIFT(Key_H), LSHIFT(Key_D),
+   ___,        Key_QUEST,      LSHIFT(Key_V), LSHIFT(Key_G), LSHIFT(Key_P), LSHIFT(Key_B), ___,
+   Key_Delete, LSHIFT(Key_E), ___, ___,
+   ___,
+
+   M(MACRO_VERSION_INFO), Key_F10,       Key_F2,        Key_F4,         Key_F6,         Key_F8,         ___,
+   Key_Enter,             LSHIFT(Key_Z), LSHIFT(Key_L), Key_Semicolon,  LSHIFT(Key_U),  LSHIFT(Key_Q),  Key_PIPE,
+                          LSHIFT(Key_M), LSHIFT(Key_N), LSHIFT(Key_A),  LSHIFT(Key_I),  LSHIFT(Key_O),  Key_Quote,
+   ___,                   LSHIFT(Key_X), LSHIFT(Key_W), Key_COLON,      Key_PLUS,       Key_UNDERSCR,   ___,
+   ___, ___, LSHIFT(Key_Spacebar), ___,
+   ___),
+
+  /*
   [NUMPAD] =  KEYMAP_STACKED
   (___, ___, ___, ___, ___, ___, ___,
    ___, ___, ___, ___, ___, ___, ___,
@@ -177,10 +200,42 @@ KEYMAPS(
    ___, ___, Key_Enter, ___,
    ___)
 
-	) // KEYMAPS(
+*/
+ [FUNCTION] =  KEYMAP_STACKED
+  ( ___, Key_F17,  Key_F15,        Key_F13,       Key_F11,        Key_F19,   XXX,
+   ___, ___,       Key_PageUp,     Key_UpArrow,   Key_PageDown,   ___,       ___,
+   ___, Key_Home,  Key_LeftArrow,  Key_DownArrow, Key_RightArrow, Key_End,
+   ___, ___,       ___,            ___,           Key_Comma,        ___,     ___,
+   ___, Key_Enter, Key_Delete, ___,
+   ___,
+
+    ___, Key_F20,   Key_F12, Key_F14,  Key_F16,  Key_F18,    ___,
+    ___, Key_STAR,  Key_7,   Key_8,    Key_9,    Key_PLUS,   ___,
+         Key_0,     Key_4,   Key_5,    Key_6,    Key_Period, Key_Equals,
+   ___,  Key_Slash, Key_1,   Key_2,    Key_3,    Key_Minus,  ___,
+   ___, ___, ___, ___,
+   ___)
+
+    ) // KEYMAPS(
 
 /* Re-enable astyle's indent enforcement */
 // *INDENT-ON*
+
+// define tapdances
+void tapDanceAction(uint8_t tap_dance_index, byte row, byte col, uint8_t tap_count,
+                    kaleidoscope::TapDance::ActionType tap_dance_action) {
+    switch (tap_dance_index) {
+    case BRACKETS:
+        return tapDanceActionKeys(tap_count, tap_dance_action,
+                                  Key_LeftBracket, Key_RightBracket);
+    case PARENS:
+        return tapDanceActionKeys(tap_count, tap_dance_action,
+                                  Key_LPAREN, Key_RPAREN);
+    case CBRACES:
+        return tapDanceActionKeys(tap_count, tap_dance_action,
+                                  Key_LCB, Key_RCB);
+    }
+}
 
 /** versionInfoMacro handles the 'firmware version info' macro
  *  When a key bound to the macro is pressed, this macro
@@ -282,7 +337,7 @@ KALEIDOSCOPE_INIT_PLUGINS(
 
   // The numpad plugin is responsible for lighting up the 'numpad' mode
   // with a custom LED effect
-  NumPad,
+  //NumPad,
 
   // The macros plugin adds support for macros
   Macros,
@@ -300,6 +355,9 @@ KALEIDOSCOPE_INIT_PLUGINS(
   // use escape to cancel oneshot
   EscapeOneShot,
 
+  // enable tapdance
+  TapDance,
+
   // show active modifiers
   ActiveModColorEffect
 );
@@ -315,7 +373,7 @@ void setup() {
 
   // While we hope to improve this in the future, the NumPad plugin
   // needs to be explicitly told which keymap layer is your numpad layer
-  NumPad.numPadLayer = NUMPAD;
+  // NumPad.numPadLayer = NUMPAD;
 
   // We want the keyboard to be able to wake the host up from suspend.
   HostPowerManagement.enableWakeup();
