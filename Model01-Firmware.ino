@@ -139,18 +139,18 @@ enum { BRACKETS, PARENS, CBRACES }; // tapdance
 KEYMAPS(
   // primary layer
   [RSTHD] = KEYMAP_STACKED
-  (___,           Key_LCB,   Key_AT, Key_STAR, Key_DOLLAR, Key_CARET, Key_LEDEffectNext,
-   Key_Backtick,  Key_J,     Key_C,  Key_Y,    Key_F,      Key_K,     Key_LESS,
-   Key_Tab,       Key_R,     Key_S,  Key_T,    Key_H,      Key_D,
-   Key_Escape,    Key_Slash, Key_V,  Key_G,    Key_P,      Key_B,     TD(BRACKETS),
-   Key_Backspace, Key_E, Key_Enter, OSM(LeftAlt),
+  (___,                Key_LCB,      Key_AT, Key_STAR, Key_DOLLAR, Key_CARET, Key_LEDEffectNext,
+   Key_Backtick,       Key_J,        Key_C,  Key_Y,    Key_F,      Key_K,     Key_LESS,
+   OSL(SHIFTED_RSTHD), Key_R,        Key_S,  Key_T,    Key_H,      Key_D,
+   Key_Escape,         Key_DBLQUOTE, Key_V,  Key_G,    Key_P,      Key_B,     TD(BRACKETS),
+   Key_Backspace,      Key_E, Key_Tab, OSM(LeftAlt),
    OSL(FUNCTION),
 
-   M(MACRO_ANY), Key_PRCNT, Key_EXCLM, Key_NonUsPound,  Key_AND,    Key_RCB,    ___,
-   Key_Enter,    Key_Z,     Key_L,     Key_Comma,       Key_U,      Key_Q,      Key_BSLASH,
-                 Key_M,     Key_N,     Key_A,           Key_I,      Key_O,      Key_DBLQUOTE,
-   TD(PARENS),   Key_X,     Key_W,     Key_Period,      Key_Equals, Key_Minus,  ___,
-   Key_Tab, OSL(SHIFTED_RSTHD), Key_Spacebar, OSM(LeftControl),
+   M(MACRO_ANY),    Key_PRCNT, Key_PIPE,  Key_NonUsPound,  Key_AND,       Key_RCB,    ___,
+   OSM(LeftAlt),    Key_Z,     Key_L,     Key_Comma,       Key_U,         Key_Q,      Key_Slash,
+                    Key_M,     Key_N,     Key_A,           Key_I,         Key_O,      OSL(SHIFTED_RSTHD),
+   TD(PARENS),      Key_X,     Key_W,     Key_Period,      Key_Semicolon, Key_Minus,  Key_Equals,
+   Key_Tab, Key_Enter, Key_Spacebar, OSM(LeftControl),
    OSL(FUNCTION)),
 
   // shift layer
@@ -158,14 +158,14 @@ KEYMAPS(
   (___,        Key_F7,         Key_F5,        Key_F3,        Key_F1,        Key_F9,        ___,
    Key_TILDE,  LSHIFT(Key_J),  LSHIFT(Key_C), LSHIFT(Key_Y), LSHIFT(Key_F), LSHIFT(Key_K), Key_GREATER,
    ___,        LSHIFT(Key_R),  LSHIFT(Key_S), LSHIFT(Key_T), LSHIFT(Key_H), LSHIFT(Key_D),
-   ___,        Key_QUEST,      LSHIFT(Key_V), LSHIFT(Key_G), LSHIFT(Key_P), LSHIFT(Key_B), ___,
+   ___,        Key_Quote,      LSHIFT(Key_V), LSHIFT(Key_G), LSHIFT(Key_P), LSHIFT(Key_B), ___,
    Key_Delete, LSHIFT(Key_E), ___, ___,
    ___,
 
    M(MACRO_VERSION_INFO), Key_F10,       Key_F2,        Key_F4,         Key_F6,         Key_F8,         ___,
-   Key_Enter,             LSHIFT(Key_Z), LSHIFT(Key_L), Key_Semicolon,  LSHIFT(Key_U),  LSHIFT(Key_Q),  Key_PIPE,
-                          LSHIFT(Key_M), LSHIFT(Key_N), LSHIFT(Key_A),  LSHIFT(Key_I),  LSHIFT(Key_O),  Key_Quote,
-   ___,                   LSHIFT(Key_X), LSHIFT(Key_W), Key_COLON,      Key_PLUS,       Key_UNDERSCR,   ___,
+   ___,                   LSHIFT(Key_Z), LSHIFT(Key_L), Key_QUEST,      LSHIFT(Key_U),  LSHIFT(Key_Q),  Key_BSLASH,
+                          LSHIFT(Key_M), LSHIFT(Key_N), LSHIFT(Key_A),  LSHIFT(Key_I),  LSHIFT(Key_O),  ___,
+   ___,                   LSHIFT(Key_X), LSHIFT(Key_W), Key_EXCLM,      Key_COLON,      Key_UNDERSCR,   Key_PLUS,
    ___, ___, LSHIFT(Key_Spacebar), ___,
    ___),
 
