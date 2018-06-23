@@ -345,8 +345,8 @@ KALEIDOSCOPE_INIT_PLUGINS(
   // The MouseKeys plugin lets you add keys to your keymap which move the mouse.
   MouseKeys,
 
-  // The HostPowerManagement plugin enables waking up the host from suspend,
-  // and allows us to turn LEDs off when it goes to sleep.
+  // The HostPowerManagement plugin allows us to turn LEDs off when host
+  // goes to sleep and resume them when it wakes up.
   HostPowerManagement,
 
   // activate oneshot
@@ -374,9 +374,6 @@ void setup() {
   // While we hope to improve this in the future, the NumPad plugin
   // needs to be explicitly told which keymap layer is your numpad layer
   // NumPad.numPadLayer = NUMPAD;
-
-  // We want the keyboard to be able to wake the host up from suspend.
-  HostPowerManagement.enableWakeup();
 
   // We want to make sure that the firmware starts with LED effects off
   // This avoids over-taxing devices that don't have a lot of power to share
