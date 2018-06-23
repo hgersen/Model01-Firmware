@@ -129,7 +129,7 @@ enum { MACRO_VERSION_INFO,
 // layers as defined; need to be in the same order as actual definition
 enum { RSTHD, SHIFTED_RSTHD, FUNCTION }; // layers
 
-enum { BRACKETS, PARENS, CBRACES }; // tapdance
+enum { OPARENS, CPARENS, CBRACES }; // tapdance
 
 /* This comment temporarily turns off astyle's indent enforcement
  *   so we can make the keymaps actually resemble the physical key layout better
@@ -141,16 +141,16 @@ KEYMAPS(
   [RSTHD] = KEYMAP_STACKED
   (___,                Key_LCB,      Key_AT, Key_STAR, Key_DOLLAR, Key_CARET, Key_LEDEffectNext,
    Key_Backtick,       Key_J,        Key_C,  Key_Y,    Key_F,      Key_K,     Key_LESS,
-   OSL(SHIFTED_RSTHD), Key_R,        Key_S,  Key_T,    Key_H,      Key_D,
-   Key_Escape,         Key_DBLQUOTE, Key_V,  Key_G,    Key_P,      Key_B,     TD(BRACKETS),
-   Key_Backspace,      Key_E, Key_Tab, OSM(LeftAlt),
+   TD(OPARENS),        Key_R,        Key_S,  Key_T,    Key_H,      Key_D,
+   Key_Escape,         Key_DBLQUOTE, Key_V,  Key_G,    Key_P,      Key_B,     Key_Escape,
+   Key_Backspace,      Key_E, Key_Enter, OSM(LeftAlt),
    OSL(FUNCTION),
 
    M(MACRO_ANY),    Key_PRCNT, Key_PIPE,  Key_NonUsPound,  Key_AND,       Key_RCB,    ___,
    OSM(LeftAlt),    Key_Z,     Key_L,     Key_Comma,       Key_U,         Key_Q,      Key_Slash,
-                    Key_M,     Key_N,     Key_A,           Key_I,         Key_O,      OSL(SHIFTED_RSTHD),
-   TD(PARENS),      Key_X,     Key_W,     Key_Period,      Key_Semicolon, Key_Minus,  Key_Equals,
-   Key_Tab, Key_Enter, Key_Spacebar, OSM(LeftControl),
+                    Key_M,     Key_N,     Key_A,           Key_I,         Key_O,      TD(CPARENS),
+   Key_Tab,         Key_X,     Key_W,     Key_Period,      Key_Semicolon, Key_Minus,  Key_Equals,
+   OSM(LeftAlt),    OSL(SHIFTED_RSTHD), Key_Spacebar, OSM(LeftControl),
    OSL(FUNCTION)),
 
   // shift layer
@@ -225,12 +225,12 @@ KEYMAPS(
 void tapDanceAction(uint8_t tap_dance_index, byte row, byte col, uint8_t tap_count,
                     kaleidoscope::TapDance::ActionType tap_dance_action) {
     switch (tap_dance_index) {
-    case BRACKETS:
+    case OPARENS:
         return tapDanceActionKeys(tap_count, tap_dance_action,
-                                  Key_LeftBracket, Key_RightBracket);
-    case PARENS:
+                                  Key_LPAREN, Key_LeftBracket);
+    case CPARENS:
         return tapDanceActionKeys(tap_count, tap_dance_action,
-                                  Key_LPAREN, Key_RPAREN);
+                                  Key_RPAREN, Key_RightBracket);
     case CBRACES:
         return tapDanceActionKeys(tap_count, tap_dance_action,
                                   Key_LCB, Key_RCB);
