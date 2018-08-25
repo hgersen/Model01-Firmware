@@ -40,9 +40,6 @@
 // visualize modifiers
 #include "Kaleidoscope-LED-ActiveModColor.h"
 
-// multiple keys by tapping
-#include "Kaleidoscope-TapDance.h"
-
 /** This 'enum' is a list of all the macros used by the Model 01's firmware
   * The names aren't particularly important. What is important is that each
   * is unique.
@@ -57,7 +54,8 @@
   */
 
 enum { MACRO_VERSION_INFO,
-       MACRO_ANY
+       MACRO_ANY,
+       F11
      };
 
 /** The Model 01's key layouts are defined as 'keymaps'. By default, there are three
@@ -125,11 +123,10 @@ enum { MACRO_VERSION_INFO,
 #define Key_COLON    LSHIFT(Key_Semicolon)
 #define Key_GREATER  LSHIFT(Key_Period)
 #define Key_LESS     LSHIFT(Key_Comma)
+#define Key_POUND    LSHIFT(Key_3)
 
 // layers as defined; need to be in the same order as actual definition
 enum { RSTHD, SHIFTED_RSTHD, FUNCTION }; // layers
-
-enum { OPARENS, CPARENS, CBRACES }; // tapdance
 
 /* This comment temporarily turns off astyle's indent enforcement
  *   so we can make the keymaps actually resemble the physical key layout better
@@ -139,36 +136,36 @@ enum { OPARENS, CPARENS, CBRACES }; // tapdance
 KEYMAPS(
   // primary layer
   [RSTHD] = KEYMAP_STACKED
-  (___,                Key_LCB,      Key_AT, Key_STAR, Key_DOLLAR, Key_CARET, Key_LEDEffectNext,
-   Key_Backtick,       Key_J,        Key_C,  Key_Y,    Key_F,      Key_K,     Key_LESS,
-   TD(OPARENS),        Key_R,        Key_S,  Key_T,    Key_H,      Key_D,
-   Key_Escape,         Key_DBLQUOTE, Key_V,  Key_G,    Key_P,      Key_B,     Key_Escape,
+  (M(F11),             Key_AT,       Key_STAR, Key_QUEST, Key_DOLLAR, Key_CARET, Key_LEDEffectNext,
+   Key_Equals,         Key_J,        Key_C,    Key_Y,     Key_F,      Key_K,     Key_Tab,
+   Key_LPAREN,         Key_R,        Key_S,    Key_T,     Key_H,      Key_D,
+   Key_LeftBracket,    Key_Minus,    Key_V,    Key_G,     Key_P,      Key_B,     Key_Escape,
    Key_Backspace,      Key_E, Key_Enter, OSM(LeftAlt),
    OSL(FUNCTION),
 
-   M(MACRO_ANY),    Key_PRCNT, Key_PIPE,  Key_NonUsPound,  Key_AND,       Key_RCB,    ___,
-   OSM(LeftAlt),    Key_Z,     Key_L,     Key_Comma,       Key_U,         Key_Q,      Key_Slash,
-                    Key_M,     Key_N,     Key_A,           Key_I,         Key_O,      TD(CPARENS),
-   Key_Tab,         Key_X,     Key_W,     Key_Period,      Key_Semicolon, Key_Minus,  Key_Equals,
+   M(MACRO_ANY),    Key_PRCNT,  Key_BSLASH, Key_EXCLM,    Key_HASH,      Key_AND,           Key_POUND,
+   Key_Enter,       Key_Z,      Key_L,      Key_Comma,    Key_U,         Key_Q,             Key_Slash,
+                    Key_M,      Key_N,      Key_A,        Key_I,         Key_O,             Key_RPAREN,
+   Key_Tab,         Key_X,      Key_W,      Key_Period,   Key_DBLQUOTE,  Key_Quote,         Key_RightBracket,
    OSM(LeftAlt),    OSL(SHIFTED_RSTHD), Key_Spacebar, OSM(LeftControl),
    OSL(FUNCTION)),
 
   // shift layer
   [SHIFTED_RSTHD] = KEYMAP_STACKED
   (___,        Key_F7,         Key_F5,        Key_F3,        Key_F1,        Key_F9,        ___,
-   Key_TILDE,  LSHIFT(Key_J),  LSHIFT(Key_C), LSHIFT(Key_Y), LSHIFT(Key_F), LSHIFT(Key_K), Key_GREATER,
-   ___,        LSHIFT(Key_R),  LSHIFT(Key_S), LSHIFT(Key_T), LSHIFT(Key_H), LSHIFT(Key_D),
-   ___,        Key_Quote,      LSHIFT(Key_V), LSHIFT(Key_G), LSHIFT(Key_P), LSHIFT(Key_B), ___,
-   Key_Delete, LSHIFT(Key_E), ___, ___,
+   Key_PLUS,   LSHIFT(Key_J),  LSHIFT(Key_C), LSHIFT(Key_Y), LSHIFT(Key_F), LSHIFT(Key_K), ___,
+   Key_LCB,    LSHIFT(Key_R),  LSHIFT(Key_S), LSHIFT(Key_T), LSHIFT(Key_H), LSHIFT(Key_D),
+   Key_LESS,   Key_UNDERSCR,   LSHIFT(Key_V), LSHIFT(Key_G), LSHIFT(Key_P), LSHIFT(Key_B), ___,
+   ___,        LSHIFT(Key_E), ___, ___,
    ___,
 
    M(MACRO_VERSION_INFO), Key_F10,       Key_F2,        Key_F4,         Key_F6,         Key_F8,         ___,
-   ___,                   LSHIFT(Key_Z), LSHIFT(Key_L), Key_QUEST,      LSHIFT(Key_U),  LSHIFT(Key_Q),  Key_BSLASH,
-                          LSHIFT(Key_M), LSHIFT(Key_N), LSHIFT(Key_A),  LSHIFT(Key_I),  LSHIFT(Key_O),  ___,
-   ___,                   LSHIFT(Key_X), LSHIFT(Key_W), Key_EXCLM,      Key_COLON,      Key_UNDERSCR,   Key_PLUS,
+   ___,                   LSHIFT(Key_Z), LSHIFT(Key_L), Key_Semicolon,  LSHIFT(Key_U),  LSHIFT(Key_Q),  Key_TILDE,
+                          LSHIFT(Key_M), LSHIFT(Key_N), LSHIFT(Key_A),  LSHIFT(Key_I),  LSHIFT(Key_O),  Key_RCB,
+   ___,                   LSHIFT(Key_X), LSHIFT(Key_W), Key_COLON,      Key_PIPE,       Key_Backtick,   Key_GREATER,
    ___, ___, LSHIFT(Key_Spacebar), ___,
    ___),
-
+  
   /*
   [NUMPAD] =  KEYMAP_STACKED
   (___, ___, ___, ___, ___, ___, ___,
@@ -221,22 +218,6 @@ KEYMAPS(
 /* Re-enable astyle's indent enforcement */
 // *INDENT-ON*
 
-// define tapdances
-void tapDanceAction(uint8_t tap_dance_index, byte row, byte col, uint8_t tap_count,
-                    kaleidoscope::TapDance::ActionType tap_dance_action) {
-    switch (tap_dance_index) {
-    case OPARENS:
-        return tapDanceActionKeys(tap_count, tap_dance_action,
-                                  Key_LPAREN, Key_LeftBracket);
-    case CPARENS:
-        return tapDanceActionKeys(tap_count, tap_dance_action,
-                                  Key_RPAREN, Key_RightBracket);
-    case CBRACES:
-        return tapDanceActionKeys(tap_count, tap_dance_action,
-                                  Key_LCB, Key_RCB);
-    }
-}
-
 /** versionInfoMacro handles the 'firmware version info' macro
  *  When a key bound to the macro is pressed, this macro
  *  prints out the firmware build information as virtual keystrokes
@@ -279,6 +260,12 @@ static void anyKeyMacro(uint8_t keyState) {
  */
 
 const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
+    if (macroIndex == F11) {
+        if (!keyToggledOff(keyState))
+            return  MACRO_NONE;
+        return MACRO(T(F11));
+    }
+    
   switch (macroIndex) {
 
   case MACRO_VERSION_INFO:
@@ -354,9 +341,6 @@ KALEIDOSCOPE_INIT_PLUGINS(
 
   // use escape to cancel oneshot
   EscapeOneShot,
-
-  // enable tapdance
-  TapDance,
 
   // show active modifiers
   ActiveModColorEffect
