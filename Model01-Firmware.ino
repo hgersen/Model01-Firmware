@@ -126,7 +126,7 @@ enum { MACRO_VERSION_INFO,
 #define Key_POUND    LSHIFT(Key_3)
 
 // layers as defined; need to be in the same order as actual definition
-enum { RSTHD, SHIFTED_RSTHD, FUNCTION }; // layers
+enum { RSTHD, SHIFTED_RSTHD, SYMBOL, NUMPAD, MOUSE }; // layers
 
 /* This comment temporarily turns off astyle's indent enforcement
  *   so we can make the keymaps actually resemble the physical key layout better
@@ -136,38 +136,83 @@ enum { RSTHD, SHIFTED_RSTHD, FUNCTION }; // layers
 KEYMAPS(
   // primary layer
   [RSTHD] = KEYMAP_STACKED
-  (M(F11),             Key_AT,       Key_STAR, Key_QUEST, Key_DOLLAR, Key_CARET, Key_LEDEffectNext,
-   Key_Equals,         Key_J,        Key_C,    Key_Y,     Key_F,      Key_K,     Key_Tab,
-   Key_LPAREN,         Key_R,        Key_S,    Key_T,     Key_H,      Key_D,
-   Key_LeftBracket,    Key_Minus,    Key_V,    Key_G,     Key_P,      Key_B,     Key_Escape,
-   Key_Backspace,      Key_E, Key_Enter, OSM(LeftAlt),
-   OSL(FUNCTION),
+  (M(F11),         Key_F1,     Key_F2,   Key_F3,    Key_F4,  Key_F5,  Key_LEDEffectNext,
+   Key_Tab,        Key_J,      Key_C,    Key_Y,     Key_F,   Key_K,   Key_Insert,
+   Key_PageUp,     Key_R,      Key_S,    Key_T,     Key_H,   Key_D,
+   Key_PageDown,   Key_Minus,  Key_V,    Key_G,     Key_P,   Key_B,   Key_Escape,
+   Key_Backspace, Key_E, OSL(SYMBOL), Key_LeftGui,
+   OSL(SYMBOL),
 
-   M(MACRO_ANY),    Key_PRCNT,  Key_BSLASH, Key_EXCLM,    Key_HASH,      Key_AND,           Key_POUND,
-   Key_Enter,       Key_Z,      Key_L,      Key_Comma,    Key_U,         Key_Q,             Key_Slash,
-                    Key_M,      Key_N,      Key_A,        Key_I,         Key_O,             Key_RPAREN,
-   Key_Tab,         Key_X,      Key_W,      Key_Period,   Key_DBLQUOTE,  Key_Quote,         Key_RightBracket,
-   OSM(LeftAlt),    OSL(SHIFTED_RSTHD), Key_Spacebar, OSM(LeftControl),
-   OSL(FUNCTION)),
+   M(MACRO_ANY),    Key_F6,  Key_F7,  Key_F8,       Key_F9,        Key_F10,   Key_Delete,
+   Key_PrintScreen, Key_Z,   Key_L,   Key_Comma,    Key_U,         Key_Q,     OSM(RightAlt),
+                    Key_M,   Key_N,   Key_A,        Key_I,         Key_O,     OSM(LeftControl),
+   Key_Enter,       Key_X,   Key_W,   Key_Period,   Key_Semicolon, Key_Slash, OSM(LeftAlt),
+   Key_RightGui, OSL(SHIFTED_RSTHD), Key_Spacebar, OSL(NUMPAD),
+   OSL(MOUSE)),
 
   // shift layer
   [SHIFTED_RSTHD] = KEYMAP_STACKED
-  (___,        Key_F7,         Key_F5,        Key_F3,        Key_F1,        Key_F9,        ___,
-   Key_PLUS,   LSHIFT(Key_J),  LSHIFT(Key_C), LSHIFT(Key_Y), LSHIFT(Key_F), LSHIFT(Key_K), ___,
-   Key_LCB,    LSHIFT(Key_R),  LSHIFT(Key_S), LSHIFT(Key_T), LSHIFT(Key_H), LSHIFT(Key_D),
-   Key_LESS,   Key_UNDERSCR,   LSHIFT(Key_V), LSHIFT(Key_G), LSHIFT(Key_P), LSHIFT(Key_B), ___,
-   ___,        LSHIFT(Key_E), ___, ___,
+  (___,             Key_F11,        Key_F12,       Key_F13,       Key_F14,       Key_F15,       ___,
+   LSHIFT(Key_Tab), LSHIFT(Key_J),  LSHIFT(Key_C), LSHIFT(Key_Y), LSHIFT(Key_F), LSHIFT(Key_K), ___,
+   Key_Home,        LSHIFT(Key_R),  LSHIFT(Key_S), LSHIFT(Key_T), LSHIFT(Key_H), LSHIFT(Key_D),
+   Key_End,         Key_UNDERSCR,   LSHIFT(Key_V), LSHIFT(Key_G), LSHIFT(Key_P), LSHIFT(Key_B), ___,
+   Key_Delete, LSHIFT(Key_E), ___, ___,
    ___,
 
-   M(MACRO_VERSION_INFO), Key_F10,       Key_F2,        Key_F4,         Key_F6,         Key_F8,         ___,
-   ___,                   LSHIFT(Key_Z), LSHIFT(Key_L), Key_Semicolon,  LSHIFT(Key_U),  LSHIFT(Key_Q),  Key_TILDE,
-                          LSHIFT(Key_M), LSHIFT(Key_N), LSHIFT(Key_A),  LSHIFT(Key_I),  LSHIFT(Key_O),  Key_RCB,
-   ___,                   LSHIFT(Key_X), LSHIFT(Key_W), Key_COLON,      Key_PIPE,       Key_Backtick,   Key_GREATER,
+   M(MACRO_VERSION_INFO), Key_F16,       Key_F17,       Key_F18,        Key_F19,        Key_F20,        ___,
+   ___,                   LSHIFT(Key_Z), LSHIFT(Key_L), Key_TILDE,      LSHIFT(Key_U),  LSHIFT(Key_Q),  ___,
+                          LSHIFT(Key_M), LSHIFT(Key_N), LSHIFT(Key_A),  LSHIFT(Key_I),  LSHIFT(Key_O),  ___,
+   ___,                   LSHIFT(Key_X), LSHIFT(Key_W), Key_POUND,      Key_AT,         Key_BSLASH,   ___,
    ___, ___, LSHIFT(Key_Spacebar), ___,
    ___),
-  
-  /*
+   
+  [SYMBOL] =  KEYMAP_STACKED
+  (___,       ___, ___, ___, ___, ___, ___,
+   ___,       Key_PRCNT,    Key_LESS,    Key_DOLLAR,   Key_GREATER, XXX , ___,
+   Key_COLON, Key_Quote,    Key_LPAREN,  Key_DBLQUOTE, Key_RPAREN,  Key_HASH,
+   ___,       Key_Backtick, XXX,         Key_PLUS,     Key_STAR,    Key_CARET,   ___,
+   ___, ___, ___, ___,
+   ___,
+
+   ___, ___, ___, ___, ___, ___, ___,
+   ___, XXX,           Key_LeftBracket, Key_Equals,  Key_RightBracket, Key_AND,   ___,
+        Key_LeftArrow, Key_DownArrow,   Key_UpArrow, Key_RightArrow,   Key_PIPE,  ___,
+   ___, Key_AT,        Key_LCB,         Key_QUEST,   Key_RCB,          Key_EXCLM, ___,
+   ___, ___, Key_Enter, ___,
+   ___),
+
   [NUMPAD] =  KEYMAP_STACKED
+  (___,           ___,      Key_PLUS,    Key_Equals, Key_STAR, ___, ___,
+   Key_Semicolon, Key_Tab,   Key_5,      Key_2,      Key_3,    Key_COLON, ___,
+   Key_Minus,     Key_7,     Key_Period, Key_1,      Key_0,    Key_4,
+   Key_PRCNT,     Key_Slash, Key_6,      Key_9,      Key_8,    Key_Comma, ___,
+   ___, Key_Enter, ___, ___,
+   ___,
+
+   ___, ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___, ___, ___, ___,
+        ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___,
+   ___),
+
+  [MOUSE] =  KEYMAP_STACKED
+  (___, ___, ___, ___, ___, ___, ___,
+   ___, Key_mouseScrollUp,   Key_mouseWarpNW, Key_mouseWarpN,  Key_mouseWarpNE, Key_mouseBtnR, ___,
+   ___, Key_mouseWarpEnd,    Key_mouseWarpW,  Key_mouseWarpIn, Key_mouseWarpE,  Key_mouseBtnL,
+   ___, Key_mouseScrollDn,   Key_mouseWarpSW, Key_mouseWarpS,  Key_mouseWarpSE, Key_mouseBtnM, ___,
+   ___, Key_mouseBtnL, ___, ___,
+   ___,
+
+   ___, ___, ___, ___, ___, ___, ___,
+   ___, ___,              Key_mouseUpL, Key_mouseUp,   Key_mouseUpR, Key_mouseScrollUp, ___,
+        Key_mouseScrollL, Key_mouseL,   Key_mouseDn,   Key_mouseR,   Key_mouseScrollR,  ___,
+   ___, ___,              Key_mouseDnL, Key_mouseBtnM, Key_mouseDnR, Key_mouseScrollDn, ___,
+   ___, ___, Key_mouseBtnR, ___,
+   ___)
+
+/*
+  [TEMPLATE] =  KEYMAP_STACKED
   (___, ___, ___, ___, ___, ___, ___,
    ___, ___, ___, ___, ___, ___, ___,
    ___, ___, ___, ___, ___, ___,
@@ -175,44 +220,13 @@ KEYMAPS(
    ___, ___, ___, ___,
    ___,
 
-   M(MACRO_VERSION_INFO),  ___, Key_Keypad7, Key_Keypad8,   Key_Keypad9,        Key_KeypadSubtract, ___,
-   ___,                    ___, Key_Keypad4, Key_Keypad5,   Key_Keypad6,        Key_KeypadAdd,      ___,
-                           ___, Key_Keypad1, Key_Keypad2,   Key_Keypad3,        Key_Equals,         ___,
-   ___,                    ___, Key_Keypad0, Key_KeypadDot, Key_KeypadMultiply, Key_KeypadDivide,   Key_Enter,
+   ___, ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___, ___, ___, ___,
+        ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___, ___, ___, ___,
    ___, ___, ___, ___,
    ___),
-
-  [FUNCTION] =  KEYMAP_STACKED
-  (___,      Key_F1,           Key_F2,      Key_F3,     Key_F4,        Key_F5,           XXX,
-   Key_Tab,  ___,              Key_mouseUp, ___,        Key_mouseBtnR, Key_mouseWarpEnd, Key_mouseWarpNE,
-   Key_Home, Key_mouseL,       Key_mouseDn, Key_mouseR, Key_mouseBtnL, Key_mouseWarpNW,
-   Key_End,  Key_PrintScreen,  Key_Insert,  ___,        Key_mouseBtnM, Key_mouseWarpSW,  Key_mouseWarpSE,
-   ___, Key_Delete, ___, ___,
-   ___,
-
-   Consumer_ScanPreviousTrack, Key_F6,                 Key_F7,                   Key_F8,                   Key_F9,          Key_F10,          Key_F11,
-   Consumer_PlaySlashPause,    Consumer_ScanNextTrack, Key_LeftCurlyBracket,     Key_RightCurlyBracket,    Key_LeftBracket, Key_RightBracket, Key_F12,
-                               Key_LeftArrow,          Key_DownArrow,            Key_UpArrow,              Key_RightArrow,  ___,              ___,
-   Key_PcApplication,          Consumer_Mute,          Consumer_VolumeDecrement, Consumer_VolumeIncrement, ___,             Key_Backslash,    Key_Pipe,
-   ___, ___, Key_Enter, ___,
-   ___)
-
 */
- [FUNCTION] =  KEYMAP_STACKED
-  ( ___, Key_F17,  Key_F15,        Key_F13,       Key_F11,        Key_F19,   XXX,
-   ___, ___,       Key_PageUp,     Key_UpArrow,   Key_PageDown,   ___,       ___,
-   ___, Key_Home,  Key_LeftArrow,  Key_DownArrow, Key_RightArrow, Key_End,
-   ___, ___,       ___,            ___,           Key_Comma,        ___,     ___,
-   ___, Key_Enter, Key_Delete, ___,
-   ___,
-
-    ___, Key_F20,   Key_F12, Key_F14,  Key_F16,  Key_F18,    ___,
-    ___, Key_STAR,  Key_7,   Key_8,    Key_9,    Key_PLUS,   ___,
-         Key_0,     Key_4,   Key_5,    Key_6,    Key_Period, Key_Equals,
-   ___,  Key_Slash, Key_1,   Key_2,    Key_3,    Key_Minus,  ___,
-   ___, ___, ___, ___,
-   ___)
-
     ) // KEYMAPS(
 
 /* Re-enable astyle's indent enforcement */
@@ -359,6 +373,8 @@ void setup() {
   // needs to be explicitly told which keymap layer is your numpad layer
   // NumPad.numPadLayer = NUMPAD;
 
+  // use 3x3 mouse warp grid
+  MouseKeys.setWarpGridSize(MOUSE_WARP_GRID_3X3);
   // We want to make sure that the firmware starts with LED effects off
   // This avoids over-taxing devices that don't have a lot of power to share
   // with USB devices
