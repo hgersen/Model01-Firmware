@@ -126,7 +126,7 @@ enum { MACRO_VERSION_INFO,
 #define Key_POUND    LSHIFT(Key_3)
 
 // layers as defined; need to be in the same order as actual definition
-enum { RSTHD, SHIFTED_RSTHD, SYMBOL, NUMPAD, MOUSE }; // layers
+enum { RSTHD, SHIFTED_RSTHD, SYMBOL, NUMPAD }; // layers
 
 /* This comment temporarily turns off astyle's indent enforcement
  *   so we can make the keymaps actually resemble the physical key layout better
@@ -148,7 +148,7 @@ KEYMAPS(
                     Key_M,   Key_N,   Key_A,        Key_I,         Key_O,     OSM(LeftControl),
    Key_Enter,       Key_X,   Key_W,   Key_Period,   Key_Semicolon, Key_Slash, OSM(LeftAlt),
    Key_RightGui, OSL(SHIFTED_RSTHD), Key_Spacebar, OSL(NUMPAD),
-   OSL(MOUSE)),
+   OSL(NUMPAD)),
 
   // shift layer
   [SHIFTED_RSTHD] = KEYMAP_STACKED
@@ -182,33 +182,18 @@ KEYMAPS(
    ___),
 
   [NUMPAD] =  KEYMAP_STACKED
-  (___,           ___,      Key_PLUS,    Key_Equals, Key_STAR, ___, ___,
-   Key_Semicolon, Key_Tab,   Key_5,      Key_2,      Key_3,    Key_COLON, ___,
-   Key_Minus,     Key_7,     Key_Period, Key_1,      Key_0,    Key_4,
-   Key_PRCNT,     Key_Slash, Key_6,      Key_9,      Key_8,    Key_Comma, ___,
+  (___, ___, ___, ___, ___, ___, ___,
+   ___,              Key_mouseScrollUp, Key_mouseWarpNW, Key_mouseUp,      Key_mouseWarpNE, XXX, ___,
+   Key_mouseScrollL, Key_mouseBtnL,     Key_mouseL,      Key_mouseDn,      Key_mouseR,      Key_mouseBtnR,
+   Key_mouseScrollR, Key_mouseScrollDn, Key_mouseWarpSW, Key_mouseWarpEnd, Key_mouseWarpSE, Key_mouseBtnM, ___,
    ___, Key_Enter, ___, ___,
    ___,
 
-   ___, ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___, ___, ___, ___,
-        ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___, ___, ___, ___,
+   ___, ___,       Key_PRCNT, Key_Equals, Key_STAR, Key_CARET, ___,
+   ___, Key_PLUS,  Key_2,     ___,        Key_4,    Key_6,     ___,
+        Key_Minus, Key_0,     Key_1,      Key_3,    Key_5,     ___,
+   ___, Key_7,     Key_8,     ___,        Key_9,    ___,       ___,
    ___, ___, ___, ___,
-   ___),
-
-  [MOUSE] =  KEYMAP_STACKED
-  (___, ___, ___, ___, ___, ___, ___,
-   ___, Key_mouseScrollUp,   Key_mouseWarpNW, Key_mouseWarpN,  Key_mouseWarpNE, Key_mouseBtnR, ___,
-   ___, Key_mouseWarpEnd,    Key_mouseWarpW,  Key_mouseWarpIn, Key_mouseWarpE,  Key_mouseBtnL,
-   ___, Key_mouseScrollDn,   Key_mouseWarpSW, Key_mouseWarpS,  Key_mouseWarpSE, Key_mouseBtnM, ___,
-   ___, Key_mouseBtnL, ___, ___,
-   ___,
-
-   ___, ___, ___, ___, ___, ___, ___,
-   ___, ___,              Key_mouseUpL, Key_mouseUp,   Key_mouseUpR, Key_mouseScrollUp, ___,
-        Key_mouseScrollL, Key_mouseL,   Key_mouseDn,   Key_mouseR,   Key_mouseScrollR,  ___,
-   ___, ___,              Key_mouseDnL, Key_mouseBtnM, Key_mouseDnR, Key_mouseScrollDn, ___,
-   ___, ___, Key_mouseBtnR, ___,
    ___)
 
 /*
@@ -373,8 +358,12 @@ void setup() {
   // needs to be explicitly told which keymap layer is your numpad layer
   // NumPad.numPadLayer = NUMPAD;
 
-  // use 3x3 mouse warp grid
-  MouseKeys.setWarpGridSize(MOUSE_WARP_GRID_3X3);
+  // Improve cursor movements
+  MouseKeys.speed = 4;
+  MouseKeys.speedDelay = 0;
+  MouseKeys.accelSpeed = 2;
+  MouseKeys.accelDelay = 100;
+  
   // We want to make sure that the firmware starts with LED effects off
   // This avoids over-taxing devices that don't have a lot of power to share
   // with USB devices
