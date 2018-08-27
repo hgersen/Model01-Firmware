@@ -168,9 +168,9 @@ KEYMAPS(
    
   [SYMBOL] =  KEYMAP_STACKED
   (___, ___, ___, ___, ___, ___, ___,
-   ___, Key_PRCNT,    Key_LESS,   Key_DOLLAR,   Key_GREATER, Key_CARET, ___,
+   ___, Key_PRCNT,    Key_LESS,   Key_DOLLAR,   Key_GREATER, Key_POUND, ___,
    ___, Key_Quote,    Key_LPAREN, Key_DBLQUOTE, Key_RPAREN,  Key_HASH,
-   ___, Key_Backtick, Key_POUND,  Key_PLUS,     Key_STAR,    Key_AND,   ___,
+   ___, Key_Backtick, Key_CARET,  Key_PLUS,     Key_STAR,    Key_AND,   ___,
    ___, ___, ___, ___,
    ___,
   
