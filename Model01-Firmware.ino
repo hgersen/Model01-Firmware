@@ -137,9 +137,9 @@ KEYMAPS(
   // primary layer
   [RSTHD] = KEYMAP_STACKED
   (M(F11),           Key_F1,     Key_F2,   Key_F3,    Key_F4,  Key_F5,  Key_LEDEffectNext,
-   Key_Tab,          Key_J,      Key_C,    Key_Y,     Key_F,   Key_K,   Key_Insert,
+   OSM(RightAlt),    Key_J,      Key_C,    Key_Y,     Key_F,   Key_K,   Key_Insert,
    OSM(LeftControl), Key_R,      Key_S,    Key_T,     Key_H,   Key_D,
-   OSM(RightAlt),    Key_Minus,  Key_V,    Key_G,     Key_P,   Key_B,   Key_Escape,
+   Key_Tab,          Key_Minus,  Key_V,    Key_G,     Key_P,   Key_B,   Key_Escape,
    Key_Backspace, Key_E, OSL(SYMBOL), Key_LeftGui,
    OSL(SYMBOL),
 
@@ -153,9 +153,9 @@ KEYMAPS(
   // shift layer
   [SHIFTED_RSTHD] = KEYMAP_STACKED
   (___,             Key_F11,        Key_F12,       Key_F13,       Key_F14,       Key_F15,       ___,
-   LSHIFT(Key_Tab), LSHIFT(Key_J),  LSHIFT(Key_C), LSHIFT(Key_Y), LSHIFT(Key_F), LSHIFT(Key_K), ___,
+   ___,             LSHIFT(Key_J),  LSHIFT(Key_C), LSHIFT(Key_Y), LSHIFT(Key_F), LSHIFT(Key_K), ___,
    ___,             LSHIFT(Key_R),  LSHIFT(Key_S), LSHIFT(Key_T), LSHIFT(Key_H), LSHIFT(Key_D),
-   ___,             Key_UNDERSCR,   LSHIFT(Key_V), LSHIFT(Key_G), LSHIFT(Key_P), LSHIFT(Key_B), ___,
+   LSHIFT(Key_Tab), Key_UNDERSCR,   LSHIFT(Key_V), LSHIFT(Key_G), LSHIFT(Key_P), LSHIFT(Key_B), ___,
    Key_Delete, LSHIFT(Key_E), ___, ___,
    ___,
 
