@@ -190,7 +190,7 @@ KEYMAPS(
    ___,
 
    ___, ___,       Key_PRCNT, Key_Equals, Key_STAR, Key_CARET, ___,
-   ___, Key_Tab,   Key_2,     ___,        Key_4,    Key_6,     Key_PLUS,
+   ___, Key_PLUS,  Key_2,     ___,        Key_4,    Key_6,     ___,
         Key_Minus, Key_0,     Key_1,      Key_3,    Key_5,     ___,
    ___, Key_7,     Key_8,     ___,        Key_9,    ___,       ___,
    ___, ___, ___, ___,
