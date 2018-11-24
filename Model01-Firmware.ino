@@ -9,6 +9,13 @@
 // The Kaleidoscope core
 #include "Kaleidoscope.h"
 
+// Support for storing the keymap in EEPROM
+#include "Kaleidoscope-EEPROM-Settings.h"
+#include "Kaleidoscope-EEPROM-Keymap.h"
+
+// Support for communicating with the host via a simple Serial protocol
+#include "Kaleidoscope-FocusSerial.h"
+
 // Support for keys that move the mouse
 #include "Kaleidoscope-MouseKeys.h"
 
@@ -18,8 +25,8 @@
 // Support for controlling the keyboard's LEDs
 #include "Kaleidoscope-LEDControl.h"
 
-// Support for an "LED off mode"
-#include "LED-Off.h"
+// Support for "Numpad" mode, which is mostly just the Numpad specific LED mode
+#include "Kaleidoscope-NumPad.h"
 
 // Support for the "Boot greeting" effect, which pulses the 'LED' button for 10s
 // when the keyboard is connected to a computer (or that computer is powered on)
@@ -42,6 +49,12 @@
 
 // put layer-toggle on thumb
 #include "Kaleidoscope-Qukeys.h"
+
+// Support for magic combos (key chords that trigger an action)
+#include "Kaleidoscope-MagicCombo.h"
+
+// Support for USB quirks, like changing the key state report protocol
+#include "Kaleidoscope-USB-Quirks.h"
 
 /** This 'enum' is a list of all the macros used by the Model 01's firmware
   * The names aren't particularly important. What is important is that each
@@ -129,7 +142,7 @@ enum { MACRO_VERSION_INFO,
 #define Key_POUND    LSHIFT(Key_3)
 
 // layers as defined; need to be in the same order as actual definition
-enum { RSTHD, SHIFTED_RSTHD, SYMBOL, NUMPAD }; // layers
+enum { MTGAP, SHIFTED_MTGAP, SYMBOL, NUMPAD }; // layers
 
 /* This comment temporarily turns off astyle's indent enforcement
  *   so we can make the keymaps actually resemble the physical key layout better
@@ -138,7 +151,7 @@ enum { RSTHD, SHIFTED_RSTHD, SYMBOL, NUMPAD }; // layers
 
 KEYMAPS(
   // primary layer
-  [RSTHD] = KEYMAP_STACKED
+  [MTGAP] = KEYMAP_STACKED
   (M(MACRO_BSLASH),  Key_EXCLM,    Key_Tab,       Key_Quote,  Key_Slash,  Key_QUEST,   ___,
    Key_DOLLAR,       Key_UNDERSCR, Key_Y,         Key_O,      Key_U,      Key_LPAREN,  ___,
    Key_COLON,        Key_I,        Key_N,         Key_E,      Key_A,      Key_Period,
@@ -150,11 +163,11 @@ KEYMAPS(
    ___,               Key_K, Key_D, Key_L, Key_C, Key_W, Key_Z,
                       Key_F, Key_H, Key_T, Key_S, Key_R, Key_DBLQUOTE,
    OSM(RightAlt),     Key_B, Key_P, Key_M, Key_V, Key_X, Key_J,
-   Key_RightGui, Key_Backspace, OSL(SHIFTED_RSTHD), OSM(LeftAlt),
+   Key_RightGui, Key_Backspace, OSL(SHIFTED_MTGAP), OSM(LeftAlt),
    OSL(SYMBOL)),
 
   // shift layer
-  [SHIFTED_RSTHD] = KEYMAP_STACKED
+  [SHIFTED_MTGAP] = KEYMAP_STACKED
   (Key_CARET,  Key_Backtick,  ___,           Key_STAR,      Key_PIPE,        Key_HASH,   ___,
    Key_AT,     Key_AND,       LSHIFT(Key_Y), LSHIFT(Key_O), LSHIFT(Key_U),   Key_LCB,    ___,
    Key_LESS,   LSHIFT(Key_I), LSHIFT(Key_N), LSHIFT(Key_E), LSHIFT(Key_A),   Key_Equals,
@@ -242,11 +255,14 @@ static void versionInfoMacro(uint8_t keyState) {
 
 static void anyKeyMacro(uint8_t keyState) {
   static Key lastKey;
-  if (keyToggledOn(keyState))
+  bool toggledOn = false;
+  if (keyToggledOn(keyState)) {
     lastKey.keyCode = Key_A.keyCode + (uint8_t)(millis() % 36);
+    toggledOn = true;
+  }
 
   if (keyIsPressed(keyState))
-    kaleidoscope::hid::pressKey(lastKey);
+    kaleidoscope::hid::pressKey(lastKey, toggledOn);
 }
 
 /** macroAction dispatches keymap events that are tied to a macro
@@ -308,10 +324,61 @@ void hostPowerManagementEventHandler(kaleidoscope::HostPowerManagement::Event ev
   toggleLedsOnSuspendResume(event);
 }
 
+/** This 'enum' is a list of all the magic combos used by the Model 01's
+ * firmware The names aren't particularly important. What is important is that
+ * each is unique.
+ *
+ * These are the names of your magic combos. They will be used by the
+ * `USE_MAGIC_COMBOS` call below.
+ */
+ enum {
+    // Toggle between Boot (6-key rollover; for BIOSes and early boot) and
+    // NKRO
+    // mode.
+    COMBO_TOGGLE_NKRO_MODE
+ };
+
+/** A tmny wrapper, to be used by MagicCombo.
+ * This simply toggles the keyboard protocol via USBQuirks, and wraps it within
+ * a function with an unused argument, to match what MagicCombo expects.
+ */
+static void toggleKeyboardProtocol(uint8_t combo_index) {
+  USBQuirks.toggleKeyboardProtocol();
+}
+
+/** Magic combo list, a list of key combo and action pairs the firmware should
+ * recognise.
+ */
+USE_MAGIC_COMBOS({.action = toggleKeyboardProtocol,
+                  // Left Fn + Esc + Shift
+                  .keys = { R3C6, R2C6, R3C7 }
+                 });
+
 // First, tell Kaleidoscope which plugins you want to use.
 // The order can be important. For example, LED effects are
 // added in the order they're listed here.
 KALEIDOSCOPE_INIT_PLUGINS(
+  // The EEPROMSettings & EEPROMKeymap plugins make it possible to have an
+  // editable keymap in EEPROM.
+  EEPROMSettings,
+  EEPROMKeymap,
+
+  // Focus allows bi-directional communication with the host, and is
+  // the
+  // interface through which the keymap in EEPROM can be edited.
+  Focus,
+
+  // FocusSettingsCommand adds a few Focus commands, intended to
+  // aid in changing some settings of the keyboard, such as the
+  // default layer (via the `settings.defaultLayer` command)
+  FocusSettingsCommand,
+
+  // FocusEEPROMCommand adds a set of Focus commands, which
+  // are very helpful in
+  // both debugging, and in backing up one's EEPROM
+  // contents.
+  FocusEEPROMCommand,
+
   // The boot greeting effect pulses the LED button for 10 seconds after the keyboard is first connected
   BootGreetingEffect,
 
@@ -348,7 +415,18 @@ KALEIDOSCOPE_INIT_PLUGINS(
   ActiveModColorEffect,
 
   // enable layer-toggle
-  Qukeys
+  Qukeys,
+
+  // The MagicCombo plugin lets you use key combinations to trigger custom
+  // actions - a bit like Macros, but triggered by pressing multiple keys at the
+  // same time.
+  MagicCombo,
+
+  // The USBQuirks plugin lets you do some things with USB that we aren't
+  // comfortable - or able - to do automatically, but can be useful
+  // nevertheless. Such as toggling the key report protocol between Boot (used
+  // by BIOSes) and Report (NKRO).
+  USBQuirks
 );
 
 /** The 'setup' function is one of the two standard Arduino sketch functions.
@@ -374,6 +452,14 @@ void setup() {
   // This avoids over-taxing devices that don't have a lot of power to share
   // with USB devices
   LEDOff.activate();
+
+  // To make the keymap editable without flashing new firmware, we store
+  // additional layers in EEPROM. For now, we reserve space for five layers.
+  // If
+  // one wants to use these layers, just set the default layer to one in
+  // EEPROM,
+  // by using the `settings.defaultLayer` Focus command.
+  EEPROMKeymap.setup(5, EEPROMKeymap.Mode::EXTEND);
 }
 
 /** loop is the second of the standard Arduino sketch functions.
