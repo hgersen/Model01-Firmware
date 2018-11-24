@@ -40,6 +40,9 @@
 // visualize modifiers
 #include "Kaleidoscope-LED-ActiveModColor.h"
 
+// put layer-toggle on thumb
+#include "Kaleidoscope-Qukeys.h"
+
 /** This 'enum' is a list of all the macros used by the Model 01's firmware
   * The names aren't particularly important. What is important is that each
   * is unique.
@@ -55,7 +58,7 @@
 
 enum { MACRO_VERSION_INFO,
        MACRO_ANY,
-       F11
+       MACRO_BSLASH
      };
 
 /** The Model 01's key layouts are defined as 'keymaps'. By default, there are three
@@ -94,7 +97,7 @@ enum { MACRO_VERSION_INFO,
 
 /**
   * Layers are "0-indexed" -- That is the first one is layer 0. The second one is layer 1.
-  * The third one is layer 2.
+  * The third oene is layer 2.
   * This 'enum' lets us use names like QWERTY, FUNCTION, and NUMPAD in place of
   * the numbers 0, 1 and 2.
   *
@@ -136,64 +139,64 @@ enum { RSTHD, SHIFTED_RSTHD, SYMBOL, NUMPAD }; // layers
 KEYMAPS(
   // primary layer
   [RSTHD] = KEYMAP_STACKED
-  (M(F11),           Key_F1,     Key_F2,   Key_F3,    Key_F4,  Key_F5,  Key_LEDEffectNext,
-   OSM(RightAlt),    Key_J,      Key_C,    Key_Y,     Key_F,   Key_K,   Key_Insert,
-   OSM(LeftControl), Key_R,      Key_S,    Key_T,     Key_H,   Key_D,
-   Key_Tab,          Key_Minus,  Key_V,    Key_G,     Key_P,   Key_B,   Key_Escape,
-   Key_Backspace, Key_E, OSL(SYMBOL), Key_LeftGui,
+  (M(MACRO_BSLASH),  Key_EXCLM,    Key_Tab,       Key_Quote,  Key_Slash,  Key_QUEST,   ___,
+   Key_DOLLAR,       Key_UNDERSCR, Key_Y,         Key_O,      Key_U,      Key_LPAREN,  ___,
+   Key_COLON,        Key_I,        Key_N,         Key_E,      Key_A,      Key_Period,
+   Key_9,            Key_RPAREN,   Key_Semicolon, Key_0,      Key_Comma,  Key_Minus,   Key_Esc,
+   OSM(LeftControl), LT(SYMBOL,Spacebar), Key_Enter, Key_LeftGui,
    OSL(SYMBOL),
 
-   M(MACRO_ANY),    Key_F6,  Key_F7,  Key_F8,       Key_F9,        Key_F10,   Key_Delete,
-   Key_PrintScreen, Key_Z,   Key_L,   Key_Comma,    Key_U,         Key_Q,     OSM(LeftAlt),
-                    Key_M,   Key_N,   Key_A,        Key_I,         Key_O,     Key_PageDown,
-   Key_Menu,        Key_X,   Key_W,   Key_Period,   Key_Semicolon, Key_Slash, Key_Enter,
-   Key_RightGui, OSL(SHIFTED_RSTHD), Key_Spacebar, OSL(NUMPAD),
-   OSL(NUMPAD)),
+   LockLayer(NUMPAD), Key_Q, Key_1, Key_G, Key_2, Key_5, Key_GREATER,
+   ___,               Key_K, Key_D, Key_L, Key_C, Key_W, Key_Z,
+                      Key_F, Key_H, Key_T, Key_S, Key_R, Key_DBLQUOTE,
+   OSM(RightAlt),     Key_B, Key_P, Key_M, Key_V, Key_X, Key_J,
+   Key_RightGui, Key_Backspace, OSL(SHIFTED_RSTHD), OSM(LeftAlt),
+   OSL(SYMBOL)),
 
   // shift layer
   [SHIFTED_RSTHD] = KEYMAP_STACKED
-  (___,             Key_F11,        Key_F12,       Key_F13,       Key_F14,       Key_F15,       ___,
-   ___,             LSHIFT(Key_J),  LSHIFT(Key_C), LSHIFT(Key_Y), LSHIFT(Key_F), LSHIFT(Key_K), ___,
-   ___,             LSHIFT(Key_R),  LSHIFT(Key_S), LSHIFT(Key_T), LSHIFT(Key_H), LSHIFT(Key_D),
-   LSHIFT(Key_Tab), Key_UNDERSCR,   LSHIFT(Key_V), LSHIFT(Key_G), LSHIFT(Key_P), LSHIFT(Key_B), ___,
-   Key_Delete, LSHIFT(Key_E), ___, ___,
+  (Key_CARET,  Key_Backtick,  ___,           Key_STAR,      Key_PIPE,        Key_HASH,   ___,
+   Key_AT,     Key_AND,       LSHIFT(Key_Y), LSHIFT(Key_O), LSHIFT(Key_U),   Key_LCB,    ___,
+   Key_LESS,   LSHIFT(Key_I), LSHIFT(Key_N), LSHIFT(Key_E), LSHIFT(Key_A),   Key_Equals,
+   Key_PRCNT,  Key_PLUS,      Key_6,         Key_3,         Key_LeftBracket, Key_8,      ___,
+   LSHIFT(Key_LeftControl), LSHIFT(Key_Spacebar), LSHIFT(Key_Enter), ___,
    ___,
 
-   M(MACRO_VERSION_INFO), Key_F16,       Key_F17,       Key_F18,        Key_F19,        Key_F20,        ___,
-   ___,                   LSHIFT(Key_Z), LSHIFT(Key_L), Key_TILDE,      LSHIFT(Key_U),  LSHIFT(Key_Q),  ___,
-                          LSHIFT(Key_M), LSHIFT(Key_N), LSHIFT(Key_A),  LSHIFT(Key_I),  LSHIFT(Key_O),  ___,
-   ___,                   LSHIFT(Key_X), LSHIFT(Key_W), Key_COLON,      Key_AT,         Key_BSLASH,     ___,
-   ___, ___, ___, ___,
+   M(MACRO_VERSION_INFO), Key_Q,         Key_RightBracket, LSHIFT(Key_G), Key_4,         Key_7,         Key_TILDE,
+   ___,                   LSHIFT(Key_K), LSHIFT(Key_D),    LSHIFT(Key_L), LSHIFT(Key_C), LSHIFT(Key_W), LSHIFT(Key_Z),
+                          LSHIFT(Key_F), LSHIFT(Key_H),    LSHIFT(Key_T), LSHIFT(Key_S), LSHIFT(Key_R), Key_RCB,
+   ___,                   LSHIFT(Key_B), LSHIFT(Key_P),    LSHIFT(Key_M), LSHIFT(Key_V), LSHIFT(Key_X), LSHIFT(Key_J),
+   ___, Key_Delete, ___, LSHIFT(Key_LeftAlt),
    ___),
    
   [SYMBOL] =  KEYMAP_STACKED
-  (___, ___, ___, ___, ___, ___, ___,
-   ___, Key_PRCNT,    Key_LESS,   Key_DOLLAR,   Key_GREATER, Key_POUND, ___,
-   ___, Key_Quote,    Key_LPAREN, Key_DBLQUOTE, Key_RPAREN,  Key_HASH,
-   ___, Key_Backtick, Key_CARET,  Key_PLUS,     Key_STAR,    Key_AND,   ___,
+  (___, Key_F1,  Key_F2,         Key_F3,       Key_F4,        Key_F5,         ___,
+   ___, XXX,     Key_Home,       Key_PageUp,   Key_F11,       Key_F12,        ___,
+   ___, Key_End, Key_LeftArrow,  Key_UpArrow,  Key_DownArrow, Key_RightArrow,
+   ___, XXX,     XXX,            XXX,          Key_PageDown,  Key_Spacebar,   ___,
    ___, ___, ___, ___,
    ___,
   
-   ___, ___, ___, ___, ___, ___, ___,
-   ___, XXX,           Key_LeftBracket, Key_Equals,  Key_RightBracket, Key_Pipe,  ___,
-        Key_LeftArrow, Key_DownArrow,   Key_UpArrow, Key_RightArrow,   Key_End,   Key_PageUp,
-   ___, Key_Home,      Key_LCB,         Key_QUEST,   Key_RCB,          Key_EXCLM, ___,
-   ___, ___, LSHIFT(Key_Spacebar), ___,
+   ___, Key_F6,        Key_F7,          Key_F8,           Key_F9,          Key_F10,            ___,
+   ___, XXX,           Key_mouseWarpNW, Key_mouseUp,      Key_mouseWarpNE, Key_mouseScrollUp,  ___,
+        Key_mouseBtnL, Key_mouseL,      Key_mouseDn,      Key_mouseR,      Key_mouseBtnR,      ___,
+   ___, Key_mouseBtnM, Key_mouseWarpSW, Key_mouseWarpEnd, Key_mouseWarpSE, Key_mouseScrollDn,  ___,
+   ___, ___, ___, ___,
    ___),
 
   [NUMPAD] =  KEYMAP_STACKED
   (___, ___, ___, ___, ___, ___, ___,
-   ___, Key_mouseScrollUp, Key_mouseWarpNW, Key_mouseUp,      Key_mouseWarpNE, ___, ___,
-   ___, Key_mouseBtnL,     Key_mouseL,      Key_mouseDn,      Key_mouseR,      Key_mouseBtnR,
-   ___, Key_mouseScrollDn, Key_mouseWarpSW, Key_mouseWarpEnd, Key_mouseWarpSE, Key_mouseBtnM, ___,
-   ___, Key_Enter, ___, ___,
+   ___, ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___,
    ___,
 
-   ___, ___,       Key_PRCNT, Key_Equals, Key_STAR, Key_CARET, ___,
-   ___, Key_PLUS,  Key_2,     ___,        Key_4,    Key_6,     ___,
-        Key_Minus, Key_0,     Key_1,      Key_3,    Key_5,     ___,
-   ___, Key_7,     Key_8,     ___,        Key_9,    ___,       ___,
-   ___, ___, ___, ___,
+   ___, ___,       Key_STAR,  Key_PLUS,   Key_PRCNT,  Key_CARET, ___,
+   ___, Key_Tab,   Key_3,     Key_2,      Key_5,      Key_COLON, ___,
+        Key_4,     Key_0,     Key_1,      Key_Period, Key_7,     Key_Minus,
+   ___, Key_Comma, Key_8,     Key_9,      Key_6,      Key_Slash, ___,
+   ___, ___, Key_Enter, ___,
    ___)
 
 /*
@@ -259,10 +262,10 @@ static void anyKeyMacro(uint8_t keyState) {
  */
 
 const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
-    if (macroIndex == F11) {
+    if (macroIndex == MACRO_BSLASH) {
         if (!keyToggledOff(keyState))
             return  MACRO_NONE;
-        return MACRO(T(F11));
+        return MACRO(T(BSLASH));
     }
     
   switch (macroIndex) {
@@ -342,7 +345,10 @@ KALEIDOSCOPE_INIT_PLUGINS(
   EscapeOneShot,
 
   // show active modifiers
-  ActiveModColorEffect
+  ActiveModColorEffect,
+
+  // enable layer-toggle
+  Qukeys
 );
 
 /** The 'setup' function is one of the two standard Arduino sketch functions.
