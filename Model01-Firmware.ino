@@ -175,7 +175,7 @@ KEYMAPS(
    LSHIFT(Key_LeftControl), LSHIFT(Key_Spacebar), LSHIFT(Key_Enter), ___,
    ___,
 
-   M(MACRO_VERSION_INFO), Key_Q,         Key_RightBracket, LSHIFT(Key_G), Key_4,         Key_7,         Key_TILDE,
+   M(MACRO_VERSION_INFO), LSHIFT(Key_Q), Key_RightBracket, LSHIFT(Key_G), Key_4,         Key_7,         Key_TILDE,
    ___,                   LSHIFT(Key_K), LSHIFT(Key_D),    LSHIFT(Key_L), LSHIFT(Key_C), LSHIFT(Key_W), LSHIFT(Key_Z),
                           LSHIFT(Key_F), LSHIFT(Key_H),    LSHIFT(Key_T), LSHIFT(Key_S), LSHIFT(Key_R), Key_RCB,
    ___,                   LSHIFT(Key_B), LSHIFT(Key_P),    LSHIFT(Key_M), LSHIFT(Key_V), LSHIFT(Key_X), LSHIFT(Key_J),
