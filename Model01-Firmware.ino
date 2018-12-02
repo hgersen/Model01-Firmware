@@ -179,7 +179,7 @@ KEYMAPS(
    ___,                   LSHIFT(Key_K), LSHIFT(Key_D),    LSHIFT(Key_L), LSHIFT(Key_C), LSHIFT(Key_W), LSHIFT(Key_Z),
                           LSHIFT(Key_F), LSHIFT(Key_H),    LSHIFT(Key_T), LSHIFT(Key_S), LSHIFT(Key_R), Key_RCB,
    ___,                   LSHIFT(Key_B), LSHIFT(Key_P),    LSHIFT(Key_M), LSHIFT(Key_V), LSHIFT(Key_X), LSHIFT(Key_J),
-   ___, Key_Delete, ___, LSHIFT(Key_LeftAlt),
+   ___, ___, ___, LSHIFT(Key_LeftAlt),
    ___),
    
   [SYMBOL] =  KEYMAP_STACKED
@@ -194,7 +194,7 @@ KEYMAPS(
    ___, XXX,           Key_mouseWarpNW, Key_mouseUp,      Key_mouseWarpNE, Key_mouseScrollUp,  ___,
         Key_mouseBtnL, Key_mouseL,      Key_mouseDn,      Key_mouseR,      Key_mouseBtnR,      ___,
    ___, Key_mouseBtnM, Key_mouseWarpSW, Key_mouseWarpEnd, Key_mouseWarpSE, Key_mouseScrollDn,  ___,
-   ___, ___, ___, ___,
+   ___, Key_Delete, Key_Backspace, ___,
    ___),
 
   [NUMPAD] =  KEYMAP_STACKED
