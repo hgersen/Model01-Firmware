@@ -12,7 +12,13 @@
   */
 
 enum { MACRO_VERSION_INFO,
-       MACRO_ANY
+       MACRO_ANY,
+       MACRO_QU,
+       MACRO_SHFT_QU,
+       MACRO_TH,
+       MACRO_SHFT_TH,
+       MACRO_IN,
+       MACRO_TION
      };
 
 /** versionInfoMacro handles the 'firmware version info' macro
@@ -70,6 +76,43 @@ const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
   case MACRO_ANY:
     anyKeyMacro(keyState);
     break;
+
+  case MACRO_QU:
+    if (keyToggledOn(keyState)) {
+      return Macros.type(PSTR("qu"));
+    }
+    break;
+
+  case MACRO_SHFT_QU:
+    if (keyToggledOn(keyState)) {
+      return Macros.type(PSTR("Qu"));
+    }
+    break;
+
+  case MACRO_TH:
+    if (keyToggledOn(keyState)) {
+      return Macros.type(PSTR("th"));
+    }
+    break;
+
+  case MACRO_SHFT_TH:
+    if (keyToggledOn(keyState)) {
+      return Macros.type(PSTR("Th"));
+    }
+    break;
+
+  case MACRO_IN:
+    if (keyToggledOn(keyState)) {
+      return Macros.type(PSTR("in"));
+    }
+    break;
+
+  case MACRO_TION:
+    if (keyToggledOn(keyState)) {
+      return Macros.type(PSTR("tion"));
+    }
+    break;
+
   }
   return MACRO_NONE;
 }
