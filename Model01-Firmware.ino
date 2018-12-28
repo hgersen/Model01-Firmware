@@ -71,7 +71,7 @@
 
 enum { MACRO_VERSION_INFO,
        MACRO_ANY,
-       MACRO_BSLASH
+       MACRO_GREATER
      };
 
 /** The Model 01's key layouts are defined as 'keymaps'. By default, there are three
@@ -152,36 +152,53 @@ enum { MTGAP, SHIFTED_MTGAP, SYMBOL, NUMPAD }; // layers
 KEYMAPS(
   // primary layer
   [MTGAP] = KEYMAP_STACKED
-  (M(MACRO_BSLASH),  Key_EXCLM,    Key_Tab,       Key_Quote,  Key_Slash,  Key_QUEST,   ___,
-   Key_DOLLAR,       Key_UNDERSCR, Key_Y,         Key_O,      Key_U,      Key_LPAREN,  ___,
-   Key_COLON,        Key_I,        Key_N,         Key_E,      Key_A,      Key_Period,
-   Key_9,            Key_RPAREN,   Key_Semicolon, Key_0,      Key_Comma,  Key_Minus,   Key_Esc,
-   OSM(LeftControl), LT(SYMBOL,Spacebar), Key_Enter, Key_LeftGui,
+  (M(MACRO_GREATER),  Key_1,  Key_2,         Key_0,  Key_X,  Key_3,  ___,
+   Key_J,             Key_W,  Key_C,         Key_L,  Key_D,  Key_B,  ___,
+   CTL_T(Escape),     Key_R,  Key_S,         Key_T,  Key_H,  Key_M,
+   Key_Z,             Key_V,  Key_DBLQUOTE,  Key_G,  Key_F,  Key_K,  Key_Q,
+   Key_Backspace, LT(SYMBOL,Spacebar), Key_Enter, Key_LeftGui,
    OSL(SYMBOL),
 
-   LockLayer(NUMPAD), Key_Q, Key_1, Key_G, Key_2, Key_5, Key_GREATER,
-   ___,               Key_K, Key_D, Key_L, Key_C, Key_W, Key_Z,
-                      Key_F, Key_H, Key_T, Key_S, Key_R, Key_DBLQUOTE,
-   OSM(RightAlt),     Key_B, Key_P, Key_M, Key_V, Key_X, Key_J,
-   Key_RightGui, Key_Backspace, OSL(SHIFTED_MTGAP), OSM(LeftAlt),
+   LockLayer(NUMPAD), Key_QUEST,  Key_UNDERSCR, Key_Quote,     Key_Tab,    Key_EXCLM, Key_LeftBracket,
+   ___,               Key_LPAREN, Key_U,        Key_O,         Key_P,      Key_Y,     Key_DOLLAR,
+                      Key_Comma,  Key_A,        Key_E,         Key_N,      Key_I,     Key_COLON,
+   OSM(RightAlt),     Key_Minus,  Key_Period,   Key_Semicolon, Key_RPAREN, Key_Slash, Key_9,
+   Key_RightGui, OSM(LeftControl), OSL(SHIFTED_MTGAP), OSM(LeftAlt),
    OSL(SYMBOL)),
 
   // shift layer
   [SHIFTED_MTGAP] = KEYMAP_STACKED
-  (Key_CARET,  Key_Backtick,  ___,           Key_STAR,      Key_PIPE,        Key_HASH,   ___,
-   Key_AT,     Key_AND,       LSHIFT(Key_Y), LSHIFT(Key_O), LSHIFT(Key_U),   Key_LCB,    ___,
-   Key_LESS,   LSHIFT(Key_I), LSHIFT(Key_N), LSHIFT(Key_E), LSHIFT(Key_A),   Key_Equals,
-   Key_PRCNT,  Key_PLUS,      Key_6,         Key_3,         Key_LeftBracket, Key_8,      ___,
-   LSHIFT(Key_LeftControl), LSHIFT(Key_Spacebar), LSHIFT(Key_Enter), ___,
+  (Key_LESS,      Key_6,         Key_4,         Key_5,         LSHIFT(Key_X),  Key_3,          ___,
+   LSHIFT(Key_J), LSHIFT(Key_W), LSHIFT(Key_C), LSHIFT(Key_L), LSHIFT(Key_D),  LSHIFT(Key_B),  ___,
+   ___,           LSHIFT(Key_R), LSHIFT(Key_S), LSHIFT(Key_T), LSHIFT(Key_H),  LSHIFT(Key_M),
+   LSHIFT(Key_Z), LSHIFT(Key_V), Key_RCB,       LSHIFT(Key_G), LSHIFT(Key_F),  LSHIFT(Key_K),  LSHIFT(Key_Q),
+   Key_Delete, LSHIFT(Key_Spacebar), LSHIFT(Key_Enter), ___,
    ___,
 
-   M(MACRO_VERSION_INFO), LSHIFT(Key_Q), Key_RightBracket, LSHIFT(Key_G), Key_4,         Key_7,         Key_TILDE,
-   ___,                   LSHIFT(Key_K), LSHIFT(Key_D),    LSHIFT(Key_L), LSHIFT(Key_C), LSHIFT(Key_W), LSHIFT(Key_Z),
-                          LSHIFT(Key_F), LSHIFT(Key_H),    LSHIFT(Key_T), LSHIFT(Key_S), LSHIFT(Key_R), Key_RCB,
-   ___,                   LSHIFT(Key_B), LSHIFT(Key_P),    LSHIFT(Key_M), LSHIFT(Key_V), LSHIFT(Key_X), LSHIFT(Key_J),
-   ___, ___, ___, LSHIFT(Key_LeftAlt),
+   M(MACRO_VERSION_INFO), Key_HASH,   Key_PIPE,      Key_LCB,       LSHIFT(Key_Tab), Key_AT,        Key_Backtick,
+   ___,                   Key_AND,    LSHIFT(Key_U), LSHIFT(Key_O), LSHIFT(Key_P),   LSHIFT(Key_Y), Key_TILDE,
+                          Key_Equals, LSHIFT(Key_A), LSHIFT(Key_E), LSHIFT(Key_N),   LSHIFT(Key_I), Key_BSLASH,
+   ___,                   Key_PLUS,   Key_STAR,      Key_8,         Key_7,           Key_PRCNT,     Key_CARET,
+   ___, LSHIFT(Key_LeftControl), ___, LSHIFT(Key_LeftAlt),
    ___),
    
+
+  [SYMBOL] =  KEYMAP_STACKED
+  (___, ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___,
+   ___,
+
+   ___, ___, ___, ___, ___, ___, ___,
+   ___, XXX,           Key_F11,       Key_PageUp,   Key_Home,       Key_F12, ___,
+        Key_LeftArrow, Key_DownArrow, Key_UpArrow,  Key_RightArrow, Key_End, ___,
+   ___, XXX,           Key_PageDown,  Key_Spacebar, XXX,            XXX,     ___,
+   ___, ___, ___, ___,
+   ___),
+
+/*
   [SYMBOL] =  KEYMAP_STACKED
   (___, Key_F1,  Key_F2,         Key_F3,       Key_F4,        Key_F5,         ___,
    ___, XXX,     Key_Home,       Key_PageUp,   Key_F11,       Key_F12,        ___,
@@ -196,6 +213,7 @@ KEYMAPS(
    ___, Key_mouseBtnM, Key_mouseWarpSW, Key_mouseWarpEnd, Key_mouseWarpSE, Key_mouseScrollDn,  ___,
    ___, Key_Delete, Key_Backspace, ___,
    ___),
+*/
 
   [NUMPAD] =  KEYMAP_STACKED
   (___, ___, ___, ___, ___, ___, ___,
@@ -278,10 +296,10 @@ static void anyKeyMacro(uint8_t keyState) {
  */
 
 const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
-    if (macroIndex == MACRO_BSLASH) {
+    if (macroIndex == MACRO_GREATER) {
         if (!keyToggledOff(keyState))
             return  MACRO_NONE;
-        return MACRO(T(BSLASH));
+        return MACRO(T(GREATER));
     }
     
   switch (macroIndex) {
