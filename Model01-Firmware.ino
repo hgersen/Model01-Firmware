@@ -37,6 +37,18 @@
 // Support for host power management (suspend & wakeup)
 #include "Kaleidoscope-HostPowerManagement.h"
 
+// Support for one-shot keys
+#include "Kaleidoscope-OneShot.h"
+
+// Let escape cancel oneshot
+#include "Kaleidoscope-Escape-OneShot.h"
+
+// visualize modifiers
+#include "Kaleidoscope-LED-ActiveModColor.h"
+
+// put layer-toggle on thumb and pinkies
+#include "Kaleidoscope-Qukeys.h"
+
 // Support for magic combos (key chords that trigger an action)
 #include "Kaleidoscope-MagicCombo.h"
 
@@ -147,6 +159,15 @@ KALEIDOSCOPE_INIT_PLUGINS(
   // The HostPowerManagement plugin allows us to turn LEDs off when then host
   // goes to sleep, and resume them when it wakes up.
   HostPowerManagement,
+
+  // Activate Oneshot
+  OneShot,
+
+  // Use escape to cancel OneShot
+  EscapeOneShot,
+
+  // Show active modifiers
+  ActiveModColorEffect,
 
   // The MagicCombo plugin lets you use key combinations to trigger custom
   // actions - a bit like Macros, but triggered by pressing multiple keys at the
