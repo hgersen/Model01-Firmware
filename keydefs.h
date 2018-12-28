@@ -1,0 +1,25 @@
+// make keys easier to read; based on UK keyboard
+
+#define Key_AT       LSHIFT(Key_Quote)
+#define Key_STAR     LSHIFT(Key_8)
+#define Key_DOLLAR   LSHIFT(Key_4)
+#define Key_CARET    LSHIFT(Key_6)
+#define Key_PRCNT    LSHIFT(Key_5)
+#define Key_EXCLM    LSHIFT(Key_1)
+#define Key_QUEST    LSHIFT(Key_Slash)
+#define Key_DBLQUOTE LSHIFT(Key_2)
+#define Key_AND      LSHIFT(Key_7)
+#define Key_LPAREN   LSHIFT(Key_9)
+#define Key_RPAREN   LSHIFT(Key_0)
+#define Key_UNDERSCR LSHIFT(Key_Minus)
+#define Key_PLUS     LSHIFT(Key_Equals)
+#define Key_LCB      LSHIFT(Key_LeftBracket)
+#define Key_RCB      LSHIFT(Key_RightBracket)
+#define Key_HASH     Key_NonUsPound
+#define Key_TILDE    LSHIFT(Key_NonUsPound)
+#define Key_BSLASH   Key_NonUsBackslashAndPipe
+#define Key_PIPE     LSHIFT(Key_NonUsBackslashAndPipe)
+#define Key_COLON    LSHIFT(Key_Semicolon)
+#define Key_GREATER  LSHIFT(Key_Period)
+#define Key_LESS     LSHIFT(Key_Comma)
+#define Key_POUND    LSHIFT(Key_3)
