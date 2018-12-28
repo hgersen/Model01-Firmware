@@ -78,13 +78,17 @@ const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
     break;
 
   case MACRO_QU:
-    if (keyToggledOn(keyState)) {
+    if (!keyToggledOff(keyState)) {
+      return MACRO_NONE;
+    } else {
       return Macros.type(PSTR("qu"));
     }
     break;
 
   case MACRO_SHFT_QU:
-    if (keyToggledOn(keyState)) {
+    if (!keyToggledOff(keyState)) {
+      return MACRO_NONE;
+    } else {
       return Macros.type(PSTR("Qu"));
     }
     break;
