@@ -194,9 +194,9 @@ void setup() {
     kaleidoscope::Qukey(0, 2, 0, Key_LeftControl),   //Esc
     kaleidoscope::Qukey(1, 2, 0, Key_LeftControl),
     kaleidoscope::Qukey(2, 2, 0, Key_LeftControl),
-    kaleidoscope::Qukey(0, 3, 0, Key_LeftShift),     //Tab
-    kaleidoscope::Qukey(1, 3, 0, Key_LeftShift),
-    kaleidoscope::Qukey(2, 3, 0, Key_LeftShift),
+    kaleidoscope::Qukey(0, 3, 0, Key_RightShift),     //Tab
+    kaleidoscope::Qukey(1, 3, 0, Key_RightShift),
+    kaleidoscope::Qukey(2, 3, 0, Key_RightShift),
     kaleidoscope::Qukey(0, 1, 15, Key_LeftAlt),      //Slash
     kaleidoscope::Qukey(1, 1, 15, Key_LeftAlt),
     kaleidoscope::Qukey(2, 1, 15, Key_LeftAlt),
