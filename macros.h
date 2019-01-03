@@ -13,11 +13,6 @@
 
 enum { MACRO_VERSION_INFO,
        MACRO_ANY,
-       MACRO_QU,
-       MACRO_SHFT_QU,
-       MACRO_TH,
-       MACRO_SHFT_TH,
-       MACRO_IN,
        MACRO_TION
      };
 
@@ -53,7 +48,6 @@ static void anyKeyMacro(uint8_t keyState) {
     kaleidoscope::hid::pressKey(lastKey, toggledOn);
 }
 
-
 /** macroAction dispatches keymap events that are tied to a macro
     to that macro. It takes two uint8_t parameters.
 
@@ -69,53 +63,19 @@ static void anyKeyMacro(uint8_t keyState) {
 const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
   switch (macroIndex) {
 
-  case MACRO_VERSION_INFO:
-    versionInfoMacro(keyState);
-    break;
+    case MACRO_VERSION_INFO:
+      versionInfoMacro(keyState);
+      break;
 
-  case MACRO_ANY:
-    anyKeyMacro(keyState);
-    break;
+    case MACRO_ANY:
+      anyKeyMacro(keyState);
+      break;
 
-  case MACRO_QU:
-    if (!keyToggledOff(keyState)) {
-      return MACRO_NONE;
-    } else {
-      return Macros.type(PSTR("qu"));
-    }
-    break;
-
-  case MACRO_SHFT_QU:
-    if (!keyToggledOff(keyState)) {
-      return MACRO_NONE;
-    } else {
-      return Macros.type(PSTR("Qu"));
-    }
-    break;
-
-  case MACRO_TH:
-    if (keyToggledOn(keyState)) {
-      return Macros.type(PSTR("th"));
-    }
-    break;
-
-  case MACRO_SHFT_TH:
-    if (keyToggledOn(keyState)) {
-      return Macros.type(PSTR("Th"));
-    }
-    break;
-
-  case MACRO_IN:
-    if (keyToggledOn(keyState)) {
-      return Macros.type(PSTR("in"));
-    }
-    break;
-
-  case MACRO_TION:
-    if (keyToggledOn(keyState)) {
-      return Macros.type(PSTR("tion"));
-    }
-    break;
+    case MACRO_TION:
+      if (keyToggledOn(keyState)) {
+        Macros.type(PSTR("tion"));
+      }
+      break;
 
   }
   return MACRO_NONE;

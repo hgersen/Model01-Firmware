@@ -37,12 +37,6 @@
 // Support for host power management (suspend & wakeup)
 #include "Kaleidoscope-HostPowerManagement.h"
 
-// Support for one-shot keys
-#include "Kaleidoscope-OneShot.h"
-
-// Let escape cancel oneshot
-#include "Kaleidoscope-Escape-OneShot.h"
-
 // visualize modifiers
 #include "Kaleidoscope-LED-ActiveModColor.h"
 
@@ -126,6 +120,9 @@ KALEIDOSCOPE_INIT_PLUGINS(
   EEPROMSettings,
   EEPROMKeymap,
 
+  // Enable dual use keys
+  Qukeys,
+
   // Focus allows bi-directional communication with the host, and is the
   // interface through which the keymap in EEPROM can be edited.
   Focus,
@@ -153,21 +150,16 @@ KALEIDOSCOPE_INIT_PLUGINS(
   // We start with the LED effect that turns off all the LEDs.
   LEDOff,
 
+  // Show active modifiers
+  ActiveModColorEffect,
+
   // The macros plugin adds support for macros
+  // note that it needs to come after OneShot for Macros to work as expected
   Macros,
 
   // The HostPowerManagement plugin allows us to turn LEDs off when then host
   // goes to sleep, and resume them when it wakes up.
   HostPowerManagement,
-
-  // Activate Oneshot
-  OneShot,
-
-  // Use escape to cancel OneShot
-  EscapeOneShot,
-
-  // Show active modifiers
-  ActiveModColorEffect,
 
   // The MagicCombo plugin lets you use key combinations to trigger custom
   // actions - a bit like Macros, but triggered by pressing multiple keys at the
@@ -194,6 +186,24 @@ void setup() {
   // with USB devices
   LEDOff.activate();
 
+  QUKEYS(
+    //                  l  r  c  alt_keycode
+    kaleidoscope::Qukey(0, 1, 0, Key_LeftAlt),       //Q
+    kaleidoscope::Qukey(1, 1, 0, Key_LeftAlt),
+    kaleidoscope::Qukey(2, 1, 0, Key_LeftAlt),
+    kaleidoscope::Qukey(0, 2, 0, Key_LeftControl),   //Esc
+    kaleidoscope::Qukey(1, 2, 0, Key_LeftControl),
+    kaleidoscope::Qukey(2, 2, 0, Key_LeftControl),
+    kaleidoscope::Qukey(0, 3, 0, Key_LeftShift),     //Tab
+    kaleidoscope::Qukey(1, 3, 0, Key_LeftShift),
+    kaleidoscope::Qukey(2, 3, 0, Key_LeftShift),
+    kaleidoscope::Qukey(0, 1, 15, Key_LeftAlt),      //Slash
+    kaleidoscope::Qukey(1, 1, 15, Key_LeftAlt),
+    kaleidoscope::Qukey(2, 1, 15, Key_LeftAlt),
+    kaleidoscope::Qukey(0, 2, 15, Key_RightControl), //Quote
+    kaleidoscope::Qukey(1, 2, 15, Key_RightControl),
+    kaleidoscope::Qukey(2, 2, 15, Key_RightControl)
+  )
   // To make the keymap editable without flashing new firmware, we store
   // additional layers in EEPROM. For now, we reserve space for five layers. If
   // one wants to use these layers, just set the default layer to one in EEPROM,

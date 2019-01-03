@@ -46,7 +46,7 @@
   *
   */
 
-enum { PRIMARY, NUMPAD }; // layers
+enum { BL13, SFT_BL13, NUMPAD, FUNCTION }; // layers
 
 // include my custom key definitions
 #include "keydefs.h"
@@ -58,36 +58,65 @@ enum { PRIMARY, NUMPAD }; // layers
 
 KEYMAPS(
 
-  [PRIMARY] = KEYMAP_STACKED
-  (___,          Key_1, Key_2, Key_3, Key_4, Key_5, Key_LEDEffectNext,
-   Key_Backtick, Key_Q, Key_W, Key_F, Key_P, Key_G, Key_Tab,
-   Key_PageUp,   Key_A, Key_R, Key_S, Key_T, Key_D,
-   Key_PageDown, Key_Z, Key_X, Key_C, Key_V, Key_B, Key_Escape,
-   Key_LeftControl, Key_Backspace, Key_LeftGui, Key_LeftShift,
+  [BL13] = KEYMAP_STACKED
+  (Key_CARET, Key_AND, Key_Equals, Key_LPAREN, Key_PLUS, Key_TILDE, Key_LEDEffectNext,
+   Key_Q,     Key_P,   Key_L,      Key_D,      Key_C,    Key_V,     ___,
+   Key_Tab,   Key_N,   Key_R,      Key_T,      Key_S,    Key_F,
+   ___,       Key_Z,   Key_J,      Key_M,      Key_G,    Key_W,     ___,
+   Key_LeftControl, LT(SFT_BL13,Escape), Key_Backspace, Key_LeftGui,
    ShiftToLayer(NUMPAD),
 
-   M(MACRO_ANY),  Key_6, Key_7, Key_8,     Key_9,         Key_0,         LockLayer(NUMPAD),
-   Key_Enter,     Key_J, Key_L, Key_U,     Key_Y,         Key_Semicolon, Key_Equals,
-                  Key_H, Key_N, Key_E,     Key_I,         Key_O,         Key_Quote,
-   Key_RightAlt,  Key_K, Key_M, Key_Comma, Key_Period,    Key_Slash,     Key_Minus,
-   Key_RightShift, Key_LeftAlt, Key_Spacebar, Key_RightControl,
-   ShiftToLayer(NUMPAD)),
+   ___,          Key_BSLASH, Key_STAR,   Key_RPAREN,    Key_DOLLAR,   Key_PRCNT, Key_Backtick,
+   ___,          Key_K,      Key_U,      Key_O,         Key_Y,        Key_B,     Key_Slash,
+                 Key_Comma,  Key_A,      Key_E,         Key_I,        Key_H,     Key_Quote,
+   Key_RightAlt, Key_Minus,  Key_Period, Key_Semicolon, Key_DBLQUOTE, Key_X,     ___,
+   Key_RightGui, LT(FUNCTION,Enter), LT(NUMPAD,Spacebar), Key_LeftAlt,
+   Key_LeftControl),
+
+  [SFT_BL13] = KEYMAP_STACKED
+  (___,             ___,           ___,           ___,           ___,           ___,           ___,
+   LSHIFT(Key_Q),   LSHIFT(Key_P), LSHIFT(Key_L), LSHIFT(Key_D), LSHIFT(Key_C), LSHIFT(Key_V), ___,
+   ___,             LSHIFT(Key_N), LSHIFT(Key_R), LSHIFT(Key_T), LSHIFT(Key_S), LSHIFT(Key_F),
+   LSHIFT(Key_Tab), LSHIFT(Key_Z), LSHIFT(Key_J), LSHIFT(Key_M), LSHIFT(Key_G), LSHIFT(Key_W), ___,
+   LSHIFT(Key_LeftControl), ___, LSHIFT(Key_Backspace), LSHIFT(Key_LeftGui),
+   ShiftToLayer(NUMPAD),
+
+   ___,                  ___,           ___,           ___,           ___,           ___,           ___,
+   ___,                  LSHIFT(Key_K), LSHIFT(Key_U), LSHIFT(Key_O), LSHIFT(Key_Y), LSHIFT(Key_B), Key_POUND,
+                         Key_QUEST,     LSHIFT(Key_A), LSHIFT(Key_E), LSHIFT(Key_I), LSHIFT(Key_H), Key_AT,
+   LSHIFT(Key_RightAlt), Key_UNDERSCR,  Key_EXCLM,     Key_COLON,     Key_PIPE ,     LSHIFT(Key_X), ___,
+   LSHIFT(Key_RightGui), ___, LSHIFT(Key_Spacebar), LSHIFT(Key_LeftAlt),
+   LSHIFT(Key_LeftControl)),
 
   [NUMPAD] =  KEYMAP_STACKED
+  (___, ___,             ___,      ___,           ___,          ___,              ___,
+   ___, Key_LESS,        Key_LCB,  M(MACRO_TION), Key_RCB,      Key_GREATER,      ___,
+   ___, Key_LeftBracket, Key_Home, Key_PageUp,    Key_PageDown, Key_End,
+   ___, Key_8,           Key_6,    Key_4,         Key_2,        Key_RightBracket, ___,
+   ___, ___, Key_Delete, ___,
+   ___,
+
+   M(MACRO_VERSION_INFO), ___,           ___,           ___,         ___,            ___,      ___,
+   ___,                   Key_7,         Key_3,         Key_0,       Key_1,          Key_5,    ___,
+                          Key_LeftArrow, Key_DownArrow, Key_UpArrow, Key_RightArrow, Key_9,    ___,
+   ___,                   ___,           ___,           ___,         ___,            Key_HASH, ___,
+   ___, ___, ___, ___,
+   ___),
+
+  [FUNCTION] =  KEYMAP_STACKED
   (___, ___, ___, ___, ___, ___, ___,
    ___, ___, ___, ___, ___, ___, ___,
    ___, ___, ___, ___, ___, ___,
    ___, ___, ___, ___, ___, ___, ___,
    ___, ___, ___, ___,
    ___,
-
-   M(MACRO_VERSION_INFO),  ___, Key_Keypad7, Key_Keypad8,   Key_Keypad9,        Key_KeypadSubtract, ___,
-   ___,                    ___, Key_Keypad4, Key_Keypad5,   Key_Keypad6,        Key_KeypadAdd,      ___,
-                           ___, Key_Keypad1, Key_Keypad2,   Key_Keypad3,        Key_Equals,         ___,
-   ___,                    ___, Key_Keypad0, Key_KeypadDot, Key_KeypadMultiply, Key_KeypadDivide,   Key_Enter,
+   ___, ___, ___, ___, ___, ___, ___,
+   ___, ___, Key_F9, Key_F10, Key_F11, Key_F12, ___,
+        ___, Key_F1, Key_F2,  Key_F3,  Key_F4, ___,
+   ___, ___, Key_F5, Key_F6,  Key_F7,  Key_F8, ___,
    ___, ___, ___, ___,
    ___),
-  
+
 /*
   [TEMPLATE] =  KEYMAP_STACKED
   (___, ___, ___, ___, ___, ___, ___,
