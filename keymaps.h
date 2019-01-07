@@ -92,7 +92,7 @@ KEYMAPS(
   (___, ___,             ___,      ___,           ___,          ___,              ___,
    ___, Key_LESS,        Key_LCB,  M(MACRO_TION), Key_RCB,      Key_GREATER,      ___,
    ___, Key_LeftBracket, Key_Home, Key_PageUp,    Key_PageDown, Key_End,
-   ___, Key_8,           Key_6,    Key_4,         Key_2,        Key_RightBracket, ___,
+   ___, Key_8,           Key_6,    Key_2,         Key_4,        Key_RightBracket, ___,
    ___, Key_Spacebar, Key_Delete, ___,
    ___,
 
