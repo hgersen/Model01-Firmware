@@ -216,7 +216,7 @@ void setup() {
     kaleidoscope::Qukey(1, 2, 15, Key_RightControl),
     kaleidoscope::Qukey(2, 2, 15, Key_RightControl)
   )
-  Qukeys.setTimeout(200);
+  Qukeys.setTimeout(170);
   Qukeys.setReleaseDelay(20);
   // To make the keymap editable without flashing new firmware, we store
   // additional layers in EEPROM. For now, we reserve space for five layers. If

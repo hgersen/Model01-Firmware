@@ -59,10 +59,10 @@ enum { BL13, SFT_BL13, NUMPAD, FUNCTION }; // layers
 KEYMAPS(
 
   [BL13] = KEYMAP_STACKED
-  (Key_CARET,      Key_AND, Key_Equals, Key_LPAREN, Key_PLUS, Key_TILDE, Key_LEDEffectNext,
-   Key_Q,          Key_W,   Key_L,      Key_D,      Key_C,    Key_V,     ___,
-   Key_Tab,        Key_N,   Key_R,      Key_T,      Key_S,    Key_F,
-   OSM(LeftShift), Key_Z,   Key_M,      Key_P,      Key_G,    Key_J,     Key_Escape,
+  (Key_CARET,  Key_AND, Key_Equals, Key_LPAREN, Key_PLUS, Key_TILDE, Key_LEDEffectNext,
+   Key_Q,      Key_W,   Key_L,      Key_D,      Key_C,    Key_V,     ___,
+   Key_Escape, Key_N,   Key_R,      Key_T,      Key_S,    Key_F,
+   Key_Tab,    Key_Z,   Key_M,      Key_P,      Key_G,    Key_J,     OSM(RightAlt), 
    OSM(LeftControl), Key_Backspace, OSL(SFT_BL13), Key_LeftGui,
    OSL(NUMPAD),
 
@@ -76,8 +76,8 @@ KEYMAPS(
   [SFT_BL13] = KEYMAP_STACKED
   (___,                ___,           ___,           ___,           ___,           ___,           ___,
    LSHIFT(Key_Q),      LSHIFT(Key_W), LSHIFT(Key_L), LSHIFT(Key_D), LSHIFT(Key_C), LSHIFT(Key_V), ___,
-   LSHIFT(Key_Tab),    LSHIFT(Key_N), LSHIFT(Key_R), LSHIFT(Key_T), LSHIFT(Key_S), LSHIFT(Key_F),
-   ___,                LSHIFT(Key_Z), LSHIFT(Key_M), LSHIFT(Key_P), LSHIFT(Key_G), LSHIFT(Key_J), ___,
+   LSHIFT(Key_Escape), LSHIFT(Key_N), LSHIFT(Key_R), LSHIFT(Key_T), LSHIFT(Key_S), LSHIFT(Key_F),
+   LSHIFT(Key_Tab),    LSHIFT(Key_Z), LSHIFT(Key_M), LSHIFT(Key_P), LSHIFT(Key_G), LSHIFT(Key_J), ___,
    LSHIFT(Key_LeftControl), LSHIFT(Key_Backspace), ___, LSHIFT(Key_LeftGui),
    ___,
 
