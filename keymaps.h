@@ -59,33 +59,33 @@ enum { BL13, SFT_BL13, NUMPAD, FUNCTION }; // layers
 KEYMAPS(
 
   [BL13] = KEYMAP_STACKED
-  (Key_CARET,     Key_AND, Key_Equals, Key_LPAREN, Key_PLUS, Key_TILDE, Key_LEDEffectNext,
-   Key_Q,         Key_W,   Key_L,      Key_D,      Key_C,    Key_V,     ___,
-   Key_Escape,    Key_N,   Key_R,      Key_T,      Key_S,    Key_F,
-   Key_LeftShift, Key_Z,   Key_M,      Key_P,      Key_G,    Key_J,     LockLayer(SFT_BL13),
-   Key_LeftControl, LT(SFT_BL13,Tab), Key_Backspace, Key_LeftGui,
-   ShiftToLayer(NUMPAD),
+  (Key_CARET,      Key_AND, Key_Equals, Key_LPAREN, Key_PLUS, Key_TILDE, Key_LEDEffectNext,
+   Key_Q,          Key_W,   Key_L,      Key_D,      Key_C,    Key_V,     ___,
+   Key_Tab,        Key_N,   Key_R,      Key_T,      Key_S,    Key_F,
+   OSM(LeftShift), Key_Z,   Key_M,      Key_P,      Key_G,    Key_J,     Key_Escape,
+   OSM(LeftControl), Key_Backspace, OSL(SFT_BL13), Key_LeftGui,
+   OSL(NUMPAD),
 
    ___,               Key_BSLASH, Key_STAR,   Key_RPAREN,    Key_DOLLAR,   Key_PRCNT, Key_Backtick,
    ___,               Key_K,      Key_U,      Key_O,         Key_Y,        Key_B,     Key_Slash,
                       Key_Comma,  Key_A,      Key_E,         Key_I,        Key_H,     Key_Quote,
-   LockLayer(NUMPAD), Key_Minus,  Key_Period, Key_Semicolon, Key_DBLQUOTE, Key_X,     LT(SFT_BL13,Tab),
-   Key_RightGui, LT(FUNCTION,Enter), LT(NUMPAD,Spacebar), Key_LeftAlt,
-   Key_LeftControl),
+   LockLayer(NUMPAD), Key_Minus,  Key_Period, Key_Semicolon, Key_DBLQUOTE, Key_X,     ___,
+   Key_RightGui, LT(FUNCTION,Enter), LT(NUMPAD,Spacebar), OSM(LeftAlt),
+   OSM(LeftControl)),
 
   [SFT_BL13] = KEYMAP_STACKED
   (___,                ___,           ___,           ___,           ___,           ___,           ___,
    LSHIFT(Key_Q),      LSHIFT(Key_W), LSHIFT(Key_L), LSHIFT(Key_D), LSHIFT(Key_C), LSHIFT(Key_V), ___,
-   LSHIFT(Key_Escape), LSHIFT(Key_N), LSHIFT(Key_R), LSHIFT(Key_T), LSHIFT(Key_S), LSHIFT(Key_F),
+   LSHIFT(Key_Tab),    LSHIFT(Key_N), LSHIFT(Key_R), LSHIFT(Key_T), LSHIFT(Key_S), LSHIFT(Key_F),
    ___,                LSHIFT(Key_Z), LSHIFT(Key_M), LSHIFT(Key_P), LSHIFT(Key_G), LSHIFT(Key_J), ___,
-   LSHIFT(Key_LeftControl), LSHIFT(Key_Tab), LSHIFT(Key_Backspace), LSHIFT(Key_LeftGui),
-   ShiftToLayer(NUMPAD),
+   LSHIFT(Key_LeftControl), LSHIFT(Key_Backspace), ___, LSHIFT(Key_LeftGui),
+   ___,
 
    ___, ___,           ___,           ___,           ___,           ___,           ___,
    ___, LSHIFT(Key_K), LSHIFT(Key_U), LSHIFT(Key_O), LSHIFT(Key_Y), LSHIFT(Key_B), Key_POUND,
         Key_QUEST,     LSHIFT(Key_A), LSHIFT(Key_E), LSHIFT(Key_I), LSHIFT(Key_H), Key_AT,
    ___, Key_UNDERSCR,  Key_EXCLM,     Key_COLON,     Key_PIPE ,     LSHIFT(Key_X), ___,
-   LSHIFT(Key_RightGui), ___, LSHIFT(Key_Spacebar), LSHIFT(Key_LeftAlt),
+   LSHIFT(Key_RightGui), LSHIFT(Key_Enter), LSHIFT(Key_Spacebar), LSHIFT(Key_LeftAlt),
    LSHIFT(Key_LeftControl)),
 
   [NUMPAD] =  KEYMAP_STACKED
@@ -93,7 +93,7 @@ KEYMAPS(
    ___, Key_LESS,        Key_LCB,  M(MACRO_TION), Key_RCB,      Key_GREATER,      ___,
    ___, Key_LeftBracket, Key_Home, Key_PageUp,    Key_PageDown, Key_End,
    ___, Key_8,           Key_6,    Key_2,         Key_4,        Key_RightBracket, ___,
-   ___, Key_Spacebar, Key_Delete, ___,
+   ___, Key_Delete, Key_Spacebar, ___,
    ___,
 
    M(MACRO_VERSION_INFO), ___,           ___,           ___,         ___,            ___,      ___,

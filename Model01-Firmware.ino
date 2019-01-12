@@ -21,6 +21,12 @@
 // Support for communicating with the host via a simple Serial protocol
 #include "Kaleidoscope-FocusSerial.h"
 
+// add support for OneShot
+#include "Kaleidoscope-OneShot.h"
+
+// add support to disable OneShot
+#include "Kaleidoscope-Escape-OneShot.h"
+
 // Support for macros
 #include "Kaleidoscope-Macros.h"
 
@@ -153,6 +159,12 @@ KALEIDOSCOPE_INIT_PLUGINS(
   // Show active modifiers
   ActiveModColorEffect,
 
+  // Activate OneShot
+  OneShot,
+
+  // Disable modifiers with Escape
+  EscapeOneShot,
+
   // The macros plugin adds support for macros
   // note that it needs to come after OneShot for Macros to work as expected
   Macros,
@@ -205,6 +217,7 @@ void setup() {
     kaleidoscope::Qukey(2, 2, 15, Key_RightControl)
   )
   Qukeys.setTimeout(200);
+  Qukeys.setReleaseDelay(20);
   // To make the keymap editable without flashing new firmware, we store
   // additional layers in EEPROM. For now, we reserve space for five layers. If
   // one wants to use these layers, just set the default layer to one in EEPROM,
